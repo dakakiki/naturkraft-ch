@@ -1,0 +1,42 @@
+@use '../abstracts' as *;
+
+/*
+* Text + Bilderreihe (FRAME 02)
+*
+* XD (1440): text ends, 75 later three photos 481x329 run edge to edge across
+* the whole width; the middle one sits 29 lower. 77 of beige below it.
+*/
+
+.text-images {
+    padding-bottom: fl(48, 77);
+
+    &__gallery {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        align-items: start;
+
+        margin-top: fl(40, 75);
+
+        @include respond-max('xs') {
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+    }
+
+    &__item {
+        aspect-ratio: 481 / 329;
+        overflow: hidden;
+
+        img {
+            @include cover-image;
+        }
+
+        &:nth-child(2) {
+            margin-top: fl(12, 29);
+
+            @include respond-max('xs') {
+                margin-top: 0;
+            }
+        }
+    }
+}

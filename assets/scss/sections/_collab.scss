@@ -1,0 +1,77 @@
+@use '../abstracts' as *;
+
+/*
+* Zusammenarbeit (FRAME 04)
+*
+* XD (1440): 91 below the title the first hairline; rows of 180 between
+* hairlines, three 376 columns with 16 between - audience Bold 24, text
+* Regular 19, link right-aligned. 124 of beige after the last line.
+*/
+
+.collab {
+    padding-bottom: fl(64, 124);
+
+    &__list {
+        @include reset-list;
+
+        margin-top: fl(40, 91);
+
+        border-top: 1px solid var(--nk-line);
+    }
+
+    &__row {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        align-items: start;
+        gap: 16px;
+
+        min-height: 180px;
+        padding-block: fl(26, 46) fl(28, 50);
+
+        border-bottom: 1px solid var(--nk-line);
+
+        @include respond-max('lg') {
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+            row-gap: 12px;
+
+            min-height: 0;
+        }
+
+        @include respond-max('sm') {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &__title {
+        @include t-lead;
+
+        @include respond-max('lg') {
+            grid-row: span 2;
+        }
+
+        @include respond-max('sm') {
+            grid-row: auto;
+        }
+    }
+
+    &__text {
+        padding-top: 3px;
+    }
+
+    &__cta {
+        justify-self: end;
+
+        text-align: right;
+
+        @include respond-max('lg') {
+            grid-column: 2;
+            justify-self: start;
+
+            text-align: left;
+        }
+
+        @include respond-max('sm') {
+            grid-column: auto;
+        }
+    }
+}

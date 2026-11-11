@@ -1,0 +1,75 @@
+@use '../abstracts' as *;
+
+/*
+* Shared section frame.
+*
+* Every section is a full-width colour band; its content sits on the 1160
+* column. --nk-accent is the colour of the highlighted (h3) lines: dark on
+* light bands, sage on the dark ones.
+*/
+
+.nk-section {
+    position: relative;
+
+    padding-top: var(--nk-section-pad);
+    padding-bottom: var(--nk-section-pad);
+
+    &--light {
+        color: var(--nk-dark);
+        background-color: var(--nk-beige);
+
+        --nk-accent: var(--nk-dark);
+    }
+
+    &--dark {
+        color: var(--nk-beige);
+        background-color: var(--nk-dark);
+
+        --nk-accent: var(--nk-sage);
+
+        a:focus-visible {
+            outline-color: var(--nk-beige);
+        }
+    }
+
+    &--sage {
+        color: var(--nk-dark);
+        background-color: var(--nk-sage);
+
+        --nk-accent: var(--nk-dark);
+    }
+
+    &__head {
+        text-align: center;
+    }
+
+    &__title {
+        @include t-h2;
+    }
+
+    /* XD: 31 from the title's last line to the text. */
+    &__text {
+        margin-top: fl(18, 31);
+    }
+}
+
+
+/*
+* Frosted glass cards. Text on them is always dark.
+*/
+.nk-glass {
+    color: var(--nk-dark);
+    border-radius: $radius;
+
+    --nk-accent: var(--nk-dark);
+
+    @include glass(clr(beige), 0.5, 26px, 1.2);
+
+    &--beige {
+        @include glass(clr(beige), 0.64, 30px, 1.26);
+    }
+
+    &--sage {
+        @include glass(clr(sage), 0.62, 17px, 1.42);
+    }
+}

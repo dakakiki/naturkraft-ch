@@ -1,0 +1,52 @@
+@use '../abstracts' as *;
+
+/*
+* Text + Bild mit Karte (FRAME 03)
+*
+* XD (1440): 54 below the highlighted line a glass card 800x361 starts; the
+* full-width photo starts 59 lower, so the card bridges the dark band and the
+* photo, and 155 of photo remain below the card. Card text Regular 19/26,
+* 604 wide, centred; bold paragraphs stand out.
+*/
+
+.image-card {
+    padding-bottom: 0;
+
+    &__stage {
+        position: relative;
+        isolation: isolate;
+
+        margin-top: fl(36, 54);
+        padding-bottom: fl(72, 155);
+    }
+
+    &__media {
+        position: absolute;
+        top: fl(40, 59);
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+
+        overflow: hidden;
+
+        img {
+            @include cover-image;
+        }
+    }
+
+    &__card {
+        width: min(800px, 100%);
+        margin-inline: auto;
+        padding: fl(32, 78) fl(22, 98);
+
+        text-align: center;
+
+        /* Reads light over both the dark band and the photo, as in the XD file. */
+        @include glass(clr(beige), 0.72, 26px, 1.24);
+
+        p + p {
+            margin-top: 26px;
+        }
+    }
+}

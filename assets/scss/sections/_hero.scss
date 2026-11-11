@@ -1,0 +1,156 @@
+@use '../abstracts' as *;
+
+/*
+* Hero (FRAME 01)
+*
+* XD (1440): 632 of photo under the header; glass card 670x469 ending at
+* x1300, 82 from the photo's top and bottom edges. Inside: H1 Black 72/72
+* (474 wide), subtitle Bold 24/26 19 below, text Regular 19/26 41 below
+* (572 wide), outline buttons 23 below, 26 apart.
+*/
+
+.hero {
+    position: relative;
+
+    background-color: var(--nk-dark);
+
+    &__stage {
+        position: relative;
+        isolation: isolate;
+
+        display: flex;
+        align-items: center;
+
+        min-height: clamp(520px, 43.9vw, 720px);
+        padding-block: fl(32, 82);
+    }
+
+    &__media {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+
+        overflow: hidden;
+
+        img {
+            @include cover-image;
+        }
+    }
+
+    &__inner {
+        @include container;
+
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    /*
+    * The running text is wider than the headline (572 vs 474) and reaches
+    * to 16 from the card's right edge, so the card is padded unevenly.
+    */
+    &__card {
+        width: min(670px, 100%);
+        padding: fl(28, 30) fl(22, 16) fl(30, 47) fl(22, 82);
+
+        @include glass(clr(beige), 0.4, 24px, 1.18);
+    }
+
+    &__title {
+        @include t-h1;
+
+        max-width: 474px;
+    }
+
+    &__subtitle {
+        @include t-lead;
+
+        max-width: 474px;
+        margin-top: fl(14, 19);
+
+        /* The editor's line break is set for the desktop card; on phones it only breaks badly. */
+        @include respond-max('sm') {
+            br {
+                display: none;
+            }
+        }
+    }
+
+    &__text {
+        max-width: 572px;
+        margin-top: fl(20, 41);
+    }
+
+    &__buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 26px;
+
+        margin-top: fl(22, 23);
+
+        .nk-btn {
+            min-width: 199px;
+        }
+
+        @include respond-max('xs') {
+            flex-direction: column;
+
+            .nk-btn {
+                width: 100%;
+            }
+        }
+    }
+}
+
+
+/*
+* Ticker (XD: 63px dark band, "naturKRAFT befindet sich im Aufbau." in sage
+* every 347px). Two identical halves loop seamlessly by moving the track by
+* exactly one half.
+*/
+.ticker {
+    display: flex;
+    align-items: center;
+
+    height: 63px;
+    overflow: hidden;
+
+    color: var(--nk-sage);
+    background-color: var(--nk-dark);
+
+    &__track {
+        display: flex;
+        width: max-content;
+
+        animation: nk-ticker 60s linear infinite;
+
+        @media (prefers-reduced-motion: reduce) {
+            animation: none;
+        }
+    }
+
+    &__group {
+        display: flex;
+        flex: 0 0 auto;
+    }
+
+    &__item {
+        padding-right: 41px;
+
+        font-size: fl(17, 19);
+        white-space: nowrap;
+    }
+
+    &:hover &__track {
+        animation-play-state: paused;
+    }
+}
+
+@keyframes nk-ticker {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}

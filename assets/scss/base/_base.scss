@@ -1,0 +1,166 @@
+@use '../abstracts' as *;
+
+:root {
+    --nk-dark: #{clr(dark)};
+    --nk-beige: #{clr(beige)};
+    --nk-sage: #{clr(sage)};
+    --nk-sand: #{clr(sand)};
+    --nk-line: #{clr(line)};
+    --nk-error: #{clr(error)};
+
+    --nk-gutter: clamp(20px, 4vw, 40px);
+    --nk-header-h: #{$header-h-rsp};
+
+    /* XD: 79 from a section's top edge to its title. */
+    --nk-section-pad: #{fl(56, 80)};
+
+    @media (min-width: $nav-bp) {
+        --nk-header-h: #{$header-h};
+    }
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+
+    /*
+    * clip, not hidden: hidden turns html into a scroll container and a
+    * position: sticky header would stick to that instead of the viewport.
+    */
+    overflow-x: clip;
+
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+
+    @media (prefers-reduced-motion: no-preference) {
+        scroll-behavior: smooth;
+    }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+    overflow-x: clip;
+
+    font-family: $font-primary;
+    @include t-body;
+
+    color: var(--nk-dark);
+    background-color: var(--nk-beige);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    &.has-menu-open {
+        overflow: hidden;
+    }
+}
+
+img,
+svg {
+    max-width: 100%;
+}
+
+img {
+    height: auto;
+}
+
+h1, h2, h3, h4 {
+    margin: 0;
+    font-weight: 900;
+}
+
+p {
+    margin: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    text-decoration-thickness: 1px;
+
+    @include focus-ring(2px);
+
+    &:hover {
+        text-decoration-thickness: 2px;
+    }
+}
+
+strong, b {
+    font-weight: 700;
+}
+
+figure {
+    margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+    color: inherit;
+}
+
+/*
+* Sections that are anchor targets land right under the fixed bar - native
+* jumps and the scripted smooth scroll both read this.
+*/
+[id] {
+    scroll-margin-top: var(--nk-header-h);
+}
+
+/* Sections focused after an in-page jump - focus moves, no ring is drawn. */
+.site-main,
+[tabindex="-1"] {
+    &:focus {
+        outline: none;
+    }
+}
+
+/*
+* Accessibility helpers
+*/
+.screen-reader-text {
+    @include visually-hidden;
+}
+
+.skip-link {
+    position: fixed;
+    z-index: 10000;
+    top: 8px;
+    left: 8px;
+
+    padding: 10px 18px;
+
+    color: var(--nk-beige);
+    background: var(--nk-dark);
+    border-radius: $radius;
+    text-decoration: none;
+
+    transform: translateY(-200%);
+
+    &:focus {
+        transform: none;
+        outline: 2px solid var(--nk-sage);
+        outline-offset: 2px;
+    }
+}
+
+.nk-container {
+    @include container;
+}
+
+.nk-icon {
+    display: inline-block;
+    flex: 0 0 auto;
+    vertical-align: middle;
+}

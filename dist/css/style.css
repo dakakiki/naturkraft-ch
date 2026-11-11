@@ -1,0 +1,1641 @@
+@charset "UTF-8";
+/*
+* naturKRAFT
+*
+* abstracts - tokens, functions, mixins (no output except @font-face)
+* base      - element defaults, buttons, editor content, reveals
+* layout    - header, footer
+* sections  - one partial per ACF layout, plus plain pages
+*/
+/*
+* Colours
+*
+* The four swatches of the XD file, plus the hairline grey and an error red
+* that keeps AA contrast on beige.
+*/
+/*
+* Source Sans Pro - self-hosted, subset to Latin.
+*
+* The brief allows no external font requests. The XD file uses Regular (400),
+* Bold (700) and Black (900); Italic is there for editor content.
+*/
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("../../assets/fonts/SourceSansPro/SourceSansPro-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("../../assets/fonts/SourceSansPro/SourceSansPro-It.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("../../assets/fonts/SourceSansPro/SourceSansPro-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("../../assets/fonts/SourceSansPro/SourceSansPro-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+/*
+* Layout constants, measured on the 1440 artboard.
+*/
+/* Content column: x140 → x1300. */
+/* Fluid range: phone (390) → design width (1440). */
+/* Header bar: 105 on desktop, compact below the navigation breakpoint. */
+/* Inline navigation needs about 1100px; below it the burger takes over. */
+/* Standard field / button heights. */
+/*
+* Breakpoints
+*/
+/*
+* Functions
+*/
+/* fluid values from max to min vw */
+/* convert px to rem */
+/* EM helper for the component scalling */
+/*
+* fl(min, max) - a value that scales from the 390 phone to the 1440 design.
+*/
+/*
+* Type scale (XD: Black 72/72, Black 56/60, Bold 24/26, Regular 19/26).
+*/
+/*
+* Frosted glass card. XD: background blur with a translucent beige or sage
+* fill. Without backdrop-filter support the fill is made nearly opaque so the
+* text keeps its contrast.
+*/
+:root {
+  --nk-dark: #1F2F2A;
+  --nk-beige: #EAE9E4;
+  --nk-sage: #A3B18A;
+  --nk-sand: #D6D4CD;
+  --nk-line: #707070;
+  --nk-error: #9B1C1C;
+  --nk-gutter: clamp(20px, 4vw, 40px);
+  --nk-header-h: 72px;
+  /* XD: 79 from a section's top edge to its title. */
+  --nk-section-pad: clamp(56px, 47.0857142857px + 2.2857142857vw, 80px);
+}
+@media (min-width: 1100px) {
+  :root {
+    --nk-header-h: 105px;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  /*
+  * clip, not hidden: hidden turns html into a scroll container and a
+  * position: sticky header would stick to that instead of the viewport.
+  */
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: clip;
+  font-family: "Source Sans Pro", "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  font-size: clamp(17px, 16.2571428571px + 0.1904761905vw, 19px);
+  line-height: 1.37;
+  color: var(--nk-dark);
+  background-color: var(--nk-beige);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body.has-menu-open {
+  overflow: hidden;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-weight: 900;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  text-decoration-thickness: 1px;
+}
+a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+strong, b {
+  font-weight: 700;
+}
+
+figure {
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/*
+* Sections that are anchor targets land right under the fixed bar - native
+* jumps and the scripted smooth scroll both read this.
+*/
+[id] {
+  scroll-margin-top: var(--nk-header-h);
+}
+
+/* Sections focused after an in-page jump - focus moves, no ring is drawn. */
+.site-main:focus,
+[tabindex="-1"]:focus {
+  outline: none;
+}
+
+/*
+* Accessibility helpers
+*/
+.screen-reader-text {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 10000;
+  top: 8px;
+  left: 8px;
+  padding: 10px 18px;
+  color: var(--nk-beige);
+  background: var(--nk-dark);
+  border-radius: 3px;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+.skip-link:focus {
+  transform: none;
+  outline: 2px solid var(--nk-sage);
+  outline-offset: 2px;
+}
+
+.nk-container {
+  width: min(100% - 2 * var(--nk-gutter), 1160px);
+  margin-inline: auto;
+}
+
+.nk-icon {
+  display: inline-block;
+  flex: 0 0 auto;
+  vertical-align: middle;
+}
+
+/*
+* Buttons (XD component "button_small")
+*
+* Outline: 1px dark border, 3 radius, Regular 19, dark label. Hover fills.
+* Solid:   dark fill, beige label. Hover turns into the outline.
+* lg:      48 tall (form buttons), at least 278 wide.
+*/
+.nk-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 6px 20px;
+  font-family: inherit;
+  font-weight: 400;
+  font-size: clamp(17px, 16.2571428571px + 0.1904761905vw, 19px);
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  color: var(--nk-dark);
+  background-color: transparent;
+  border: 1px solid var(--nk-dark);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.nk-btn:hover, .nk-btn:focus-visible {
+  color: var(--nk-beige);
+  background-color: var(--nk-dark);
+  text-decoration: none;
+}
+.nk-btn:focus-visible {
+  outline: 2px solid var(--nk-dark);
+  outline-offset: 3px;
+}
+.nk-btn:disabled, .nk-btn[aria-disabled=true] {
+  cursor: default;
+  opacity: 0.6;
+}
+.nk-btn--solid {
+  color: var(--nk-beige);
+  background-color: var(--nk-dark);
+}
+.nk-btn--solid:hover, .nk-btn--solid:focus-visible {
+  color: var(--nk-dark);
+  background-color: transparent;
+}
+.nk-btn--solid:disabled:hover {
+  color: var(--nk-beige);
+  background-color: var(--nk-dark);
+}
+.nk-btn--lg {
+  min-height: 48px;
+  min-width: min(278px, 100%);
+}
+
+/*
+* Text link with the diagonal arrow (XD "arrow2"), Bold 19. Hover underlines.
+*/
+.nk-arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-weight: 700;
+  font-size: clamp(17px, 16.2571428571px + 0.1904761905vw, 19px);
+  line-height: 1.3;
+  text-decoration: none;
+  color: var(--nk-dark);
+}
+.nk-arrow-link span {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: text-decoration-color 0.2s ease;
+}
+.nk-arrow-link .nk-icon {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.2s ease;
+}
+.nk-arrow-link:hover, .nk-arrow-link:focus-visible {
+  text-decoration: none;
+}
+.nk-arrow-link:hover span, .nk-arrow-link:focus-visible span {
+  text-decoration-color: currentColor;
+}
+.nk-arrow-link:hover .nk-icon, .nk-arrow-link:focus-visible .nk-icon {
+  transform: translate(2px, -2px);
+}
+
+/*
+* Editor content.
+*
+* Paragraphs are Regular 19/26. "Hervorhebung" (h3) is the Bold 24 line the
+* design uses either right after a paragraph (8 apart, as a closing
+* statement) or as the heading of a new block (about 52 above it, 16 to the
+* paragraph it introduces). The colour follows the section: dark on light
+* sections, sage on dark ones.
+*/
+.nk-richtext > * + * {
+  margin-top: 0.4em;
+}
+.nk-richtext p + p {
+  margin-top: 1em;
+}
+.nk-richtext h2 {
+  font-weight: 900;
+  font-size: clamp(34px, 25.8285714286px + 2.0952380952vw, 56px);
+  line-height: 1.07;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+  margin-top: 1.2em;
+}
+.nk-richtext h3 {
+  font-weight: 700;
+  font-size: clamp(20px, 18.5142857143px + 0.380952381vw, 24px);
+  line-height: 1.12;
+  color: var(--nk-accent, currentColor);
+}
+.nk-richtext h3 + p {
+  margin-top: 16px;
+}
+.nk-richtext p + h3 {
+  margin-top: 8px;
+}
+.nk-richtext {
+  /* A highlight that opens a new block, not one that closes the paragraph. */
+}
+.nk-richtext p + h3:has(+ p) {
+  margin-top: clamp(36px, 30.0571428571px + 1.5238095238vw, 52px);
+}
+.nk-richtext ul, .nk-richtext ol {
+  margin: 1em 0 0;
+  padding-left: 1.2em;
+}
+.nk-richtext li + li {
+  margin-top: 0.3em;
+}
+.nk-richtext a {
+  text-decoration-thickness: 1px;
+}
+.nk-richtext u {
+  text-underline-offset: 0.15em;
+}
+
+/*
+* Scroll reveals - initial state.
+*
+* GSAP hides these as it initialises, but the script is deferred, so without
+* this the browser paints them first and they blink out. Applies only while
+* JS is confirmed alive (.js on <html>) and until GSAP owns the element.
+*/
+.js .fade-up:not(.fade-up-initialized) {
+  visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .fade-up:not(.fade-up-initialized) {
+    visibility: visible;
+  }
+}
+/*
+* Header
+*
+* XD (1440): beige bar 105 tall; logo 294x73 at x140; links Regular 19 with
+* 51 between them; "Anfrage stellen" 152x40 ending at x1300, 56 after the
+* last link. Hover underlines a link.
+*
+* Below $nav-bp the same navigation becomes a full-screen panel; the logo and
+* the burger stay above it.
+*/
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--nk-beige);
+  transition: box-shadow 0.25s ease;
+}
+.site-header.is-scrolled {
+  box-shadow: 0 1px 0 rgba(31, 47, 42, 0.12);
+}
+.site-header__inner {
+  width: min(100% - 2 * var(--nk-gutter), 1160px);
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: var(--nk-header-h);
+}
+.site-header__logo {
+  position: relative;
+  z-index: 2;
+  display: block;
+  flex: 0 0 auto;
+  width: clamp(160px, 20.42vw, 294px);
+  line-height: 0;
+  text-decoration: none;
+}
+.site-header__logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.site-header__logo-text {
+  font-weight: 900;
+  font-size: 28px;
+  line-height: 1;
+}
+.site-header__toggle {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  appearance: none;
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-right: -10px;
+  color: var(--nk-dark);
+}
+.site-header__toggle:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 0px;
+}
+.site-header__toggle .site-header__icon-close {
+  display: none;
+}
+.site-header__toggle[aria-expanded=true] .site-header__icon-open {
+  display: none;
+}
+.site-header__toggle[aria-expanded=true] .site-header__icon-close {
+  display: block;
+}
+@media (min-width: 1100px) {
+  .site-header__toggle {
+    display: none;
+  }
+}
+
+.site-nav {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 48px;
+  padding: calc(var(--nk-header-h) + 24px) var(--nk-gutter) 48px;
+  overflow-y: auto;
+  background-color: var(--nk-beige);
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-16px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
+}
+.site-nav.is-open {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-nav {
+    transform: none;
+    transition: none;
+  }
+  .site-nav.is-open {
+    transition: none;
+  }
+}
+.site-nav__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.site-nav__list a {
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.15;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.18em;
+  transition: text-decoration-color 0.2s ease;
+}
+.site-nav__list a:hover, .site-nav__list a:focus-visible {
+  text-decoration-color: currentColor;
+}
+.site-nav__list .is-active > a {
+  text-decoration-color: currentColor;
+}
+@media (min-width: 1100px) {
+  .site-nav {
+    position: static;
+    z-index: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 56px;
+    padding: 0;
+    overflow: visible;
+    background: none;
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .site-nav__list {
+    flex-direction: row;
+    gap: 51px;
+  }
+  .site-nav__list a {
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 1.3;
+  }
+}
+
+/*
+* Footer
+*
+* XD (1440): beige bar 105 tall, logo 294x73 at x140, links Regular 19 with
+* 62 between them, the last one ending at x1300. Hover underlines.
+*/
+.site-footer {
+  background-color: var(--nk-beige);
+}
+.site-footer__inner {
+  width: min(100% - 2 * var(--nk-gutter), 1160px);
+  margin-inline: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px 48px;
+  min-height: 105px;
+  padding-block: 16px;
+}
+@media (max-width: 768px) {
+  .site-footer__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-block: 32px 40px;
+  }
+}
+.site-footer__logo {
+  display: block;
+  flex: 0 0 auto;
+  width: clamp(160px, 20.42vw, 294px);
+  line-height: 0;
+  text-decoration: none;
+}
+.site-footer__logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.site-footer__logo-text {
+  font-weight: 900;
+  font-size: 28px;
+  line-height: 1;
+}
+.site-footer__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px clamp(24px, 9.8857142857px + 3.619047619vw, 62px);
+}
+.site-footer__list a {
+  font-size: clamp(17px, 16.2571428571px + 0.1904761905vw, 19px);
+  line-height: 1.3;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.18em;
+  transition: text-decoration-color 0.2s ease;
+}
+.site-footer__list a:hover, .site-footer__list a:focus-visible {
+  text-decoration-color: currentColor;
+}
+
+/*
+* Back to top (XD "Page arrow"): dark 53x53 square, white chevron.
+*/
+.to-top {
+  position: fixed;
+  right: clamp(16px, 10.8px + 1.3333333333vw, 30px);
+  bottom: clamp(16px, 10.8px + 1.3333333333vw, 30px);
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 53px;
+  height: 53px;
+  color: #FFFFFF;
+  background-color: var(--nk-dark);
+  border-radius: 3px;
+  text-decoration: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s, background-color 0.2s ease;
+}
+.to-top .nk-icon {
+  width: 28px;
+  height: 28px;
+}
+.to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s, background-color 0.2s ease;
+}
+.to-top:hover {
+  background-color: #2E443D;
+}
+.to-top:focus-visible {
+  outline: 2px solid var(--nk-dark);
+  outline-offset: 3px;
+}
+.to-top {
+  /* Without JS it stays available rather than hidden forever. */
+}
+html:not(.js) .to-top {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+/*
+* Shared section frame.
+*
+* Every section is a full-width colour band; its content sits on the 1160
+* column. --nk-accent is the colour of the highlighted (h3) lines: dark on
+* light bands, sage on the dark ones.
+*/
+.nk-section {
+  position: relative;
+  padding-top: var(--nk-section-pad);
+  padding-bottom: var(--nk-section-pad);
+}
+.nk-section--light {
+  color: var(--nk-dark);
+  background-color: var(--nk-beige);
+  --nk-accent: var(--nk-dark);
+}
+.nk-section--dark {
+  color: var(--nk-beige);
+  background-color: var(--nk-dark);
+  --nk-accent: var(--nk-sage);
+}
+.nk-section--dark a:focus-visible {
+  outline-color: var(--nk-beige);
+}
+.nk-section--sage {
+  color: var(--nk-dark);
+  background-color: var(--nk-sage);
+  --nk-accent: var(--nk-dark);
+}
+.nk-section__head {
+  text-align: center;
+}
+.nk-section__title {
+  font-weight: 900;
+  font-size: clamp(34px, 25.8285714286px + 2.0952380952vw, 56px);
+  line-height: 1.07;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+.nk-section {
+  /* XD: 31 from the title's last line to the text. */
+}
+.nk-section__text {
+  margin-top: clamp(18px, 13.1714285714px + 1.2380952381vw, 31px);
+}
+
+/*
+* Frosted glass cards. Text on them is always dark.
+*/
+.nk-glass {
+  color: var(--nk-dark);
+  border-radius: 3px;
+  --nk-accent: var(--nk-dark);
+  background-color: rgba(234, 233, 228, 0.5);
+  -webkit-backdrop-filter: blur(26px) brightness(1.2);
+  backdrop-filter: blur(26px) brightness(1.2);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nk-glass {
+    background-color: rgba(234, 233, 228, 0.92);
+  }
+}
+.nk-glass--beige {
+  background-color: rgba(234, 233, 228, 0.64);
+  -webkit-backdrop-filter: blur(30px) brightness(1.26);
+  backdrop-filter: blur(30px) brightness(1.26);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nk-glass--beige {
+    background-color: rgba(234, 233, 228, 0.92);
+  }
+}
+.nk-glass--sage {
+  background-color: rgba(163, 177, 138, 0.62);
+  -webkit-backdrop-filter: blur(17px) brightness(1.42);
+  backdrop-filter: blur(17px) brightness(1.42);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nk-glass--sage {
+    background-color: rgba(163, 177, 138, 0.92);
+  }
+}
+
+/*
+* Hero (FRAME 01)
+*
+* XD (1440): 632 of photo under the header; glass card 670x469 ending at
+* x1300, 82 from the photo's top and bottom edges. Inside: H1 Black 72/72
+* (474 wide), subtitle Bold 24/26 19 below, text Regular 19/26 41 below
+* (572 wide), outline buttons 23 below, 26 apart.
+*/
+.hero {
+  position: relative;
+  background-color: var(--nk-dark);
+}
+.hero__stage {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  min-height: clamp(520px, 43.9vw, 720px);
+  padding-block: clamp(32px, 13.4285714286px + 4.7619047619vw, 82px);
+}
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+.hero__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero__inner {
+  width: min(100% - 2 * var(--nk-gutter), 1160px);
+  margin-inline: auto;
+  display: flex;
+  justify-content: flex-end;
+}
+.hero {
+  /*
+  * The running text is wider than the headline (572 vs 474) and reaches
+  * to 16 from the card's right edge, so the card is padded unevenly.
+  */
+}
+.hero__card {
+  width: min(670px, 100%);
+  padding: clamp(28px, 27.2571428571px + 0.1904761905vw, 30px) clamp(16px, 24.2285714286px + -0.5714285714vw, 22px) clamp(30px, 23.6857142857px + 1.619047619vw, 47px) clamp(22px, -0.2857142857px + 5.7142857143vw, 82px);
+  background-color: rgba(234, 233, 228, 0.4);
+  -webkit-backdrop-filter: blur(24px) brightness(1.18);
+  backdrop-filter: blur(24px) brightness(1.18);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .hero__card {
+    background-color: rgba(234, 233, 228, 0.92);
+  }
+}
+.hero__title {
+  font-weight: 900;
+  font-size: clamp(42px, 30.8571428571px + 2.8571428571vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.005em;
+  max-width: 474px;
+}
+.hero__subtitle {
+  font-weight: 700;
+  font-size: clamp(20px, 18.5142857143px + 0.380952381vw, 24px);
+  line-height: 1.12;
+  max-width: 474px;
+  margin-top: clamp(14px, 12.1428571429px + 0.4761904762vw, 19px);
+  /* The editor's line break is set for the desktop card; on phones it only breaks badly. */
+}
+@media (max-width: 640px) {
+  .hero__subtitle br {
+    display: none;
+  }
+}
+.hero__text {
+  max-width: 572px;
+  margin-top: clamp(20px, 12.2px + 2vw, 41px);
+}
+.hero__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 26px;
+  margin-top: clamp(22px, 21.6285714286px + 0.0952380952vw, 23px);
+}
+.hero__buttons .nk-btn {
+  min-width: 199px;
+}
+@media (max-width: 568px) {
+  .hero__buttons {
+    flex-direction: column;
+  }
+  .hero__buttons .nk-btn {
+    width: 100%;
+  }
+}
+
+/*
+* Ticker (XD: 63px dark band, "naturKRAFT befindet sich im Aufbau." in sage
+* every 347px). Two identical halves loop seamlessly by moving the track by
+* exactly one half.
+*/
+.ticker {
+  display: flex;
+  align-items: center;
+  height: 63px;
+  overflow: hidden;
+  color: var(--nk-sage);
+  background-color: var(--nk-dark);
+}
+.ticker__track {
+  display: flex;
+  width: max-content;
+  animation: nk-ticker 60s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker__track {
+    animation: none;
+  }
+}
+.ticker__group {
+  display: flex;
+  flex: 0 0 auto;
+}
+.ticker__item {
+  padding-right: 41px;
+  font-size: clamp(17px, 16.2571428571px + 0.1904761905vw, 19px);
+  white-space: nowrap;
+}
+.ticker:hover .ticker__track {
+  animation-play-state: paused;
+}
+
+@keyframes nk-ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+/*
+* Text + Bilderreihe (FRAME 02)
+*
+* XD (1440): text ends, 75 later three photos 481x329 run edge to edge across
+* the whole width; the middle one sits 29 lower. 77 of beige below it.
+*/
+.text-images {
+  padding-bottom: clamp(48px, 37.2285714286px + 2.7619047619vw, 77px);
+}
+.text-images__gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  margin-top: clamp(40px, 27px + 3.3333333333vw, 75px);
+}
+@media (max-width: 568px) {
+  .text-images__gallery {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+.text-images__item {
+  aspect-ratio: 481/329;
+  overflow: hidden;
+}
+.text-images__item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.text-images__item:nth-child(2) {
+  margin-top: clamp(12px, 5.6857142857px + 1.619047619vw, 29px);
+}
+@media (max-width: 568px) {
+  .text-images__item:nth-child(2) {
+    margin-top: 0;
+  }
+}
+
+/*
+* Text + Bild mit Karte (FRAME 03)
+*
+* XD (1440): 54 below the highlighted line a glass card 800x361 starts; the
+* full-width photo starts 59 lower, so the card bridges the dark band and the
+* photo, and 155 of photo remain below the card. Card text Regular 19/26,
+* 604 wide, centred; bold paragraphs stand out.
+*/
+.image-card {
+  padding-bottom: 0;
+}
+.image-card__stage {
+  position: relative;
+  isolation: isolate;
+  margin-top: clamp(36px, 29.3142857143px + 1.7142857143vw, 54px);
+  padding-bottom: clamp(72px, 41.1714285714px + 7.9047619048vw, 155px);
+}
+.image-card__media {
+  position: absolute;
+  top: clamp(40px, 32.9428571429px + 1.8095238095vw, 59px);
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+.image-card__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.image-card__card {
+  width: min(800px, 100%);
+  margin-inline: auto;
+  padding: clamp(32px, 14.9142857143px + 4.380952381vw, 78px) clamp(22px, -6.2285714286px + 7.2380952381vw, 98px);
+  text-align: center;
+  /* Reads light over both the dark band and the photo, as in the XD file. */
+  background-color: rgba(234, 233, 228, 0.72);
+  -webkit-backdrop-filter: blur(26px) brightness(1.24);
+  backdrop-filter: blur(26px) brightness(1.24);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .image-card__card {
+    background-color: rgba(234, 233, 228, 0.92);
+  }
+}
+.image-card__card p + p {
+  margin-top: 26px;
+}
+
+/*
+* Zusammenarbeit (FRAME 04)
+*
+* XD (1440): 91 below the title the first hairline; rows of 180 between
+* hairlines, three 376 columns with 16 between - audience Bold 24, text
+* Regular 19, link right-aligned. 124 of beige after the last line.
+*/
+.collab {
+  padding-bottom: clamp(64px, 41.7142857143px + 5.7142857143vw, 124px);
+}
+.collab__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  margin-top: clamp(40px, 21.0571428571px + 4.8571428571vw, 91px);
+  border-top: 1px solid var(--nk-line);
+}
+.collab__row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: 16px;
+  min-height: 180px;
+  padding-block: clamp(26px, 18.5714285714px + 1.9047619048vw, 46px) clamp(28px, 19.8285714286px + 2.0952380952vw, 50px);
+  border-bottom: 1px solid var(--nk-line);
+}
+@media (max-width: 991px) {
+  .collab__row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+    row-gap: 12px;
+    min-height: 0;
+  }
+}
+@media (max-width: 640px) {
+  .collab__row {
+    grid-template-columns: 1fr;
+  }
+}
+.collab__title {
+  font-weight: 700;
+  font-size: clamp(20px, 18.5142857143px + 0.380952381vw, 24px);
+  line-height: 1.12;
+}
+@media (max-width: 991px) {
+  .collab__title {
+    grid-row: span 2;
+  }
+}
+@media (max-width: 640px) {
+  .collab__title {
+    grid-row: auto;
+  }
+}
+.collab__text {
+  padding-top: 3px;
+}
+.collab__cta {
+  justify-self: end;
+  text-align: right;
+}
+@media (max-width: 991px) {
+  .collab__cta {
+    grid-column: 2;
+    justify-self: start;
+    text-align: left;
+  }
+}
+@media (max-width: 640px) {
+  .collab__cta {
+    grid-column: auto;
+  }
+}
+
+/*
+* Text + Karten auf Bild (FRAME 05)
+*
+* XD (1440): 91 below the text two glass cards 572x447, 16 apart; the
+* full-width photo (473) starts 96 below their top and runs 122 past their
+* bottom. In a card: title Bold 24 (titles bottom-aligned across both
+* cards), text Regular 19 376 wide 16 below, solid button 65 below the text,
+* 97 from the card's bottom edge.
+*/
+.text-cards {
+  padding-bottom: 0;
+}
+.text-cards__stage {
+  position: relative;
+  isolation: isolate;
+  margin-top: clamp(40px, 21.0571428571px + 4.8571428571vw, 91px);
+  padding-bottom: clamp(72px, 53.4285714286px + 4.7619047619vw, 122px);
+}
+.text-cards__media {
+  position: absolute;
+  top: clamp(48px, 30.1714285714px + 4.5714285714vw, 96px);
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+.text-cards__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.text-cards__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto auto auto;
+  gap: 0 16px;
+}
+@media (max-width: 768px) {
+  .text-cards__grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    row-gap: 16px;
+  }
+}
+.text-cards__card {
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  row-gap: 16px;
+  padding: clamp(36px, 12.6px + 6vw, 99px) clamp(22px, -0.2857142857px + 5.7142857143vw, 82px) clamp(36px, 13.3428571429px + 5.8095238095vw, 97px);
+  text-align: center;
+}
+@media (max-width: 768px) {
+  .text-cards__card {
+    grid-row: auto;
+    grid-template-rows: auto;
+  }
+}
+.text-cards__title {
+  font-weight: 700;
+  font-size: clamp(20px, 18.5142857143px + 0.380952381vw, 24px);
+  line-height: 1.12;
+  align-self: end;
+}
+.text-cards__text {
+  max-width: 376px;
+  margin-inline: auto;
+}
+.text-cards__cta {
+  align-self: end;
+  margin-top: clamp(16px, 3.7428571429px + 3.1428571429vw, 49px);
+}
+
+/*
+* Kontaktformular (FRAME 06)
+*
+* XD (1440): 55 below the highlighted line the form: three 376 columns with
+* 16 between, rows 48 tall and 32 apart - Bereich | Organisation (2 cols),
+* Name | E-Mail | Telefon, Anliegen full width (96 tall). Fields: 1px dark
+* border, radius 3, placeholder at 50%. 48 below: privacy note (580 wide)
+* left, "Anfrage senden" 278x48 right; the result message bold under the
+* note.
+*/
+.contact {
+  padding-bottom: clamp(56px, 45.6px + 2.6666666667vw, 84px);
+}
+.contact__form {
+  margin-top: clamp(36px, 28.9428571429px + 1.8095238095vw, 55px);
+}
+
+/* CF7 chrome the plugin stylesheet would otherwise handle (it is not loaded). */
+.wpcf7 .screen-reader-response {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.wpcf7 .hidden-fields-container {
+  display: none;
+}
+.wpcf7 form .wpcf7-response-output {
+  margin: 0;
+}
+.wpcf7 form.init .wpcf7-response-output,
+.wpcf7 form.resetting .wpcf7-response-output,
+.wpcf7 form.submitting .wpcf7-response-output {
+  display: none;
+}
+
+.nk-form {
+  position: relative;
+}
+.nk-form__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px 16px;
+}
+@media (max-width: 768px) {
+  .nk-form__grid {
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+  }
+}
+.nk-form__field {
+  position: relative;
+  min-width: 0;
+}
+.nk-form__field--organisation {
+  grid-column: span 2;
+}
+.nk-form__field--anliegen {
+  grid-column: 1/-1;
+}
+@media (max-width: 768px) {
+  .nk-form__field--organisation, .nk-form__field--anliegen {
+    grid-column: auto;
+  }
+}
+.nk-form .wpcf7-form-control-wrap {
+  position: relative;
+  display: block;
+}
+.nk-form input[type=text],
+.nk-form input[type=email],
+.nk-form input[type=tel],
+.nk-form textarea {
+  display: block;
+  width: 100%;
+  height: 48px;
+  padding: 0 23px;
+  /* 16px minimum keeps iOS from zooming into the field. */
+  font-size: max(16px, clamp(17px, 16.2571428571px + 0.1904761905vw, 19px));
+  line-height: 1.37;
+  color: var(--nk-dark);
+  background-color: transparent;
+  border: 1px solid var(--nk-dark);
+  border-radius: 3px;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.nk-form input[type=text]::placeholder,
+.nk-form input[type=email]::placeholder,
+.nk-form input[type=tel]::placeholder,
+.nk-form textarea::placeholder {
+  color: rgba(31, 47, 42, 0.6);
+  opacity: 1;
+}
+.nk-form input[type=text]:focus,
+.nk-form input[type=email]:focus,
+.nk-form input[type=tel]:focus,
+.nk-form textarea:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--nk-dark);
+}
+.nk-form input[type=text][aria-invalid=true],
+.nk-form input[type=email][aria-invalid=true],
+.nk-form input[type=tel][aria-invalid=true],
+.nk-form textarea[aria-invalid=true] {
+  border-color: var(--nk-error);
+  box-shadow: inset 0 0 0 1px var(--nk-error);
+}
+.nk-form textarea {
+  height: 96px;
+  min-height: 96px;
+  padding-block: 11px;
+  resize: vertical;
+}
+.nk-form .wpcf7-not-valid-tip {
+  display: block;
+  margin-top: 6px;
+  font-weight: 700;
+  font-weight: 400;
+  font-size: clamp(15px, 14.6285714286px + 0.0952380952vw, 16px);
+  line-height: 1.4;
+  color: var(--nk-error);
+}
+.nk-form__hint {
+  margin-top: 10px;
+  font-weight: 400;
+  font-size: clamp(15px, 14.6285714286px + 0.0952380952vw, 16px);
+  line-height: 1.4;
+  color: rgba(31, 47, 42, 0.85);
+}
+.nk-form__footer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px 40px;
+  margin-top: clamp(32px, 26.0571428571px + 1.5238095238vw, 48px);
+}
+@media (max-width: 768px) {
+  .nk-form__footer {
+    flex-direction: column;
+  }
+}
+.nk-form__note {
+  max-width: 580px;
+}
+.nk-form .wpcf7-response-output {
+  margin-top: 15px;
+  font-weight: 700;
+}
+.nk-form form.invalid .wpcf7-response-output,
+.nk-form form.unaccepted .wpcf7-response-output,
+.nk-form form.failed .wpcf7-response-output,
+.nk-form form.aborted .wpcf7-response-output,
+.nk-form form.spam .wpcf7-response-output {
+  padding-left: 14px;
+  border-left: 3px solid var(--nk-error);
+}
+.nk-form__submit {
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  flex-direction: row-reverse;
+  gap: 14px;
+}
+.nk-form__submit input[type=submit] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+.nk-form .wpcf7-spinner {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border: 2px solid rgba(31, 47, 42, 0.25);
+  border-top-color: var(--nk-dark);
+  border-radius: 50%;
+  visibility: hidden;
+  animation: nk-spin 0.8s linear infinite;
+}
+.nk-form.submitting .wpcf7-spinner {
+  visibility: visible;
+}
+
+@keyframes nk-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+/*
+* Area dropdown
+*
+* XD (Kontakt artboard): the closed field shows "Bereich" with a dark 48x48
+* tab on the right; open, a dark 642x209 panel drops from the field's lower
+* edge with the eight areas in two columns - beige 24x24 boxes, labels in
+* beige Regular 19, 39 from row to row; the chosen one carries the tick.
+*
+* It is the CF7 radio group, enhanced by layout_contact.js (.is-enhanced):
+* a button toggles the group, which stays a real radio group for keyboard
+* and screen reader users. Without JS the group is simply shown open.
+*/
+.nk-select .nk-form__legend {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.nk-select:not(.is-enhanced) {
+  grid-column: 1/-1;
+}
+.nk-select .wpcf7-radio {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(4, auto);
+  grid-auto-flow: column;
+  gap: 13px 24px;
+  padding: 34px 36px;
+  color: var(--nk-beige);
+  background-color: var(--nk-dark);
+  border-radius: 3px;
+}
+@media (max-width: 568px) {
+  .nk-select .wpcf7-radio {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    grid-auto-flow: row;
+    padding: 24px 22px;
+  }
+}
+.nk-select .wpcf7-list-item {
+  display: block;
+  margin: 0;
+}
+.nk-select label {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  cursor: pointer;
+}
+.nk-select label:hover .wpcf7-list-item-label {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+.nk-select input[type=radio] {
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  margin: 1px 0 0;
+  background-color: var(--nk-beige);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 20px;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.nk-select input[type=radio]:checked {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cpolyline fill='none' stroke='%231f2f2a' stroke-width='90' points='761.97 187.23 428.21 726.02 238.03 451.39'/%3E%3C/svg%3E");
+}
+.nk-select input[type=radio]:focus-visible {
+  outline: 2px solid var(--nk-beige);
+  outline-offset: 3px;
+}
+.nk-select .wpcf7-list-item-label {
+  line-height: 1.37;
+}
+.nk-select {
+  /* Enhanced: closed field + drop-down panel. */
+}
+.nk-select.is-enhanced .nk-form__legend {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.nk-select.is-enhanced .wpcf7-form-control-wrap {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 20;
+  display: none;
+  width: min(642px, 100vw - 2 * var(--nk-gutter));
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+}
+.nk-select.is-enhanced.is-open .wpcf7-form-control-wrap {
+  display: block;
+}
+.nk-select.is-enhanced {
+  /* The tip inside the panel is mirrored under the field instead. */
+}
+.nk-select.is-enhanced .wpcf7-not-valid-tip {
+  display: none;
+}
+.nk-select__toggle {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  appearance: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+  padding: 0 64px 0 23px;
+  font-size: max(16px, clamp(17px, 16.2571428571px + 0.1904761905vw, 19px));
+  text-align: left;
+  border: 1px solid var(--nk-dark);
+  border-radius: 3px;
+}
+.nk-select__toggle:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--nk-dark);
+}
+.nk-select__toggle:focus-visible {
+  outline: 2px solid var(--nk-dark);
+  outline-offset: 2px;
+}
+.nk-select__value {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.nk-select__value.is-placeholder {
+  color: rgba(31, 47, 42, 0.6);
+}
+.nk-select__arrow {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  color: var(--nk-beige);
+  background-color: var(--nk-dark);
+  border-radius: 0 3px 3px 0;
+}
+.nk-select__arrow .nk-icon {
+  width: 22px;
+  height: 22px;
+  transform: rotate(180deg);
+  transition: transform 0.2s ease;
+}
+.nk-select.is-open .nk-select__arrow .nk-icon {
+  transform: none;
+}
+.nk-select.is-invalid .nk-select__toggle {
+  border-color: var(--nk-error);
+  box-shadow: inset 0 0 0 1px var(--nk-error);
+}
+.nk-select__error {
+  display: block;
+  margin-top: 6px;
+  font-weight: 700;
+  font-weight: 400;
+  font-size: clamp(15px, 14.6285714286px + 0.0952380952vw, 16px);
+  line-height: 1.4;
+  color: var(--nk-error);
+}
+.nk-select__error:empty {
+  display: none;
+}
+
+/*
+* Newsletter (FRAME 07)
+*
+* XD (1440): sage band; 48 below the text a beige field 866x48 without a
+* border and the 278x48 button 16 to its right; consent text (658 wide) 55
+* below, the confirmation in bold 15 under it.
+*/
+.newsletter {
+  padding-bottom: clamp(56px, 48.2px + 2vw, 77px);
+}
+.newsletter__form {
+  margin-top: clamp(32px, 26.0571428571px + 1.5238095238vw, 48px);
+}
+.newsletter__row {
+  display: flex;
+  gap: 16px;
+}
+@media (max-width: 640px) {
+  .newsletter__row {
+    flex-direction: column;
+  }
+}
+.newsletter__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 48px;
+  padding: 0 28px;
+  font-size: max(16px, clamp(17px, 16.2571428571px + 0.1904761905vw, 19px));
+  color: var(--nk-dark);
+  background-color: var(--nk-beige);
+  border: 1px solid transparent;
+  border-radius: 3px;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.newsletter__input::placeholder {
+  color: rgba(31, 47, 42, 0.6);
+  opacity: 1;
+}
+.newsletter__input:focus {
+  outline: none;
+  border-color: var(--nk-dark);
+  box-shadow: inset 0 0 0 1px var(--nk-dark);
+}
+.newsletter__input[aria-invalid=true] {
+  border-color: var(--nk-error);
+  box-shadow: inset 0 0 0 1px var(--nk-error);
+}
+.newsletter__button {
+  flex: 0 0 auto;
+}
+.newsletter__consent {
+  max-width: 658px;
+  margin-top: clamp(28px, 17.9714285714px + 2.5714285714vw, 55px);
+}
+.newsletter__message {
+  max-width: 856px;
+  margin-top: 15px;
+  font-weight: 700;
+}
+.newsletter__message:empty {
+  display: none;
+}
+.newsletter__message[data-status=invalid], .newsletter__message[data-status=error] {
+  padding-left: 14px;
+  border-left: 3px solid var(--nk-error);
+}
+.newsletter__form.is-busy .newsletter__button {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/*
+* Plain pages - Impressum, Datenschutz, 404.
+*
+* XD (Impressum artboard): a 25px dark band under the header, title Black
+* 56/60 48 below it, text Regular 19/26 1160 wide, a 25px sage band above
+* the footer.
+*/
+.page-plain {
+  color: var(--nk-dark);
+  background-color: var(--nk-beige);
+  border-top: 25px solid var(--nk-dark);
+  border-bottom: 25px solid var(--nk-sage);
+  --nk-accent: var(--nk-dark);
+}
+.page-plain__inner {
+  width: min(100% - 2 * var(--nk-gutter), 1160px);
+  margin-inline: auto;
+  min-height: 50vh;
+  padding-block: clamp(36px, 31.5428571429px + 1.1428571429vw, 48px) clamp(56px, 41.1428571429px + 3.8095238095vw, 96px);
+}
+.page-plain__title {
+  font-weight: 900;
+  font-size: clamp(34px, 25.8285714286px + 2.0952380952vw, 56px);
+  line-height: 1.07;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+.page-plain__content {
+  margin-top: clamp(20px, 17.4px + 0.6666666667vw, 27px);
+}
+.page-plain__content h2 {
+  font-weight: 700;
+  font-size: clamp(20px, 18.5142857143px + 0.380952381vw, 24px);
+  line-height: 1.12;
+  margin-top: 1.6em;
+}
+.page-plain__content h3 {
+  margin-top: 1.4em;
+}
+.page-plain__content > :first-child {
+  margin-top: 0;
+}
+.page-plain__actions {
+  margin-top: clamp(28px, 23.5428571429px + 1.1428571429vw, 40px);
+}

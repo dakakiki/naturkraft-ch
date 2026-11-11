@@ -1,0 +1,177 @@
+{
+    "key": "group_nk_theme_settings",
+    "title": "Theme Settings",
+    "fields": [
+        {
+            "key": "field_nk_ts_tab_header",
+            "label": "Header",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_nk_ts_header_logo",
+            "label": "Logo",
+            "name": "header_logo",
+            "type": "image",
+            "instructions": "",
+            "required": 1,
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_nk_ts_header_button",
+            "label": "Button",
+            "name": "header_button",
+            "type": "link",
+            "instructions": "z. B. «Anfrage stellen» → #kontakt",
+            "required": 0,
+            "return_format": "array"
+        },
+        {
+            "key": "field_nk_ts_tab_footer",
+            "label": "Footer",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_nk_ts_footer_logo",
+            "label": "Logo im Footer",
+            "name": "footer_logo",
+            "type": "image",
+            "instructions": "Leer = Logo aus dem Header. Links: Design → Menüs → «Footer».",
+            "required": 0,
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_nk_ts_tab_form",
+            "label": "Kontaktformular",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_nk_ts_form_hint_default",
+            "label": "Hinweis beim Anliegen",
+            "name": "form_hint_default",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "rows": 2,
+            "new_lines": "",
+            "default_value": "Was suchen Sie, was bieten Sie an oder was möchten Sie entwickeln? Angaben zu Mengen, Region und Zeitraum helfen uns bei der Einordnung."
+        },
+        {
+            "key": "field_nk_ts_form_hint_foerderung",
+            "label": "Hinweis bei «Förderverein und Förderung»",
+            "name": "form_hint_foerderung",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "rows": 2,
+            "new_lines": "",
+            "default_value": "Wie möchten Sie den Förderverein unterstützen?"
+        },
+        {
+            "key": "field_nk_ts_form_hint_investition",
+            "label": "Hinweis bei «Investition in die AG»",
+            "name": "form_hint_investition",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "rows": 2,
+            "new_lines": "",
+            "default_value": "Bitte beschreiben Sie kurz Ihr Interesse. Beteiligungsform und Konditionen besprechen wir persönlich."
+        },
+        {
+            "key": "field_nk_ts_form_privacy_note",
+            "label": "Datenschutz-Hinweis neben dem Button",
+            "name": "form_privacy_note",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "tabs": "visual",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_nk_ts_tab_seo",
+            "label": "SEO & Fehlerseite",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_nk_ts_meta_description",
+            "label": "Meta-Beschreibung",
+            "name": "meta_description",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "rows": 3,
+            "new_lines": "",
+            "maxlength": 300,
+            "default_value": "naturKRAFT verbindet besondere Rohstoffe aus vielfältigen Agrarlandschaften mit Verarbeitung, Gastronomie und Handel. Entdecken Sie neue Anwendungen."
+        },
+        {
+            "key": "field_nk_ts_error_title",
+            "label": "Fehlerseite: Titel",
+            "name": "error_title",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "default_value": "Diese Seite wurde nicht gefunden.",
+            "wrapper": {
+                "width": "60"
+            }
+        },
+        {
+            "key": "field_nk_ts_error_button",
+            "label": "Fehlerseite: Button",
+            "name": "error_button",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "default_value": "Zur Startseite",
+            "wrapper": {
+                "width": "40"
+            }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "theme-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1794385615
+}

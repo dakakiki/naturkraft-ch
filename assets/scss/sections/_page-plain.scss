@@ -1,0 +1,52 @@
+@use '../abstracts' as *;
+
+/*
+* Plain pages - Impressum, Datenschutz, 404.
+*
+* XD (Impressum artboard): a 25px dark band under the header, title Black
+* 56/60 48 below it, text Regular 19/26 1160 wide, a 25px sage band above
+* the footer.
+*/
+
+.page-plain {
+    color: var(--nk-dark);
+    background-color: var(--nk-beige);
+
+    border-top: 25px solid var(--nk-dark);
+    border-bottom: 25px solid var(--nk-sage);
+
+    --nk-accent: var(--nk-dark);
+
+    &__inner {
+        @include container;
+
+        min-height: 50vh;
+        padding-block: fl(36, 48) fl(56, 96);
+    }
+
+    &__title {
+        @include t-h2;
+    }
+
+    &__content {
+        margin-top: fl(20, 27);
+
+        h2 {
+            @include t-lead;
+
+            margin-top: 1.6em;
+        }
+
+        h3 {
+            margin-top: 1.4em;
+        }
+
+        > :first-child {
+            margin-top: 0;
+        }
+    }
+
+    &__actions {
+        margin-top: fl(28, 40);
+    }
+}

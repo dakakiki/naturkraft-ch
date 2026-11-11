@@ -1,0 +1,119 @@
+@use '../abstracts' as *;
+
+/*
+* Buttons (XD component "button_small")
+*
+* Outline: 1px dark border, 3 radius, Regular 19, dark label. Hover fills.
+* Solid:   dark fill, beige label. Hover turns into the outline.
+* lg:      48 tall (form buttons), at least 278 wide.
+*/
+
+.nk-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    min-height: $button-h;
+    padding: 6px 20px;
+
+    font-family: inherit;
+    font-weight: 400;
+    font-size: fl(17, 19);
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+
+    color: var(--nk-dark);
+    background-color: transparent;
+    border: 1px solid var(--nk-dark);
+    border-radius: $radius;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+        color: var(--nk-beige);
+        background-color: var(--nk-dark);
+        text-decoration: none;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--nk-dark);
+        outline-offset: 3px;
+    }
+
+    &:disabled,
+    &[aria-disabled="true"] {
+        cursor: default;
+        opacity: 0.6;
+    }
+
+    &--solid {
+        color: var(--nk-beige);
+        background-color: var(--nk-dark);
+
+        &:hover,
+        &:focus-visible {
+            color: var(--nk-dark);
+            background-color: transparent;
+        }
+
+        &:disabled:hover {
+            color: var(--nk-beige);
+            background-color: var(--nk-dark);
+        }
+    }
+
+    &--lg {
+        min-height: $control-h;
+        min-width: min(278px, 100%);
+    }
+}
+
+/*
+* Text link with the diagonal arrow (XD "arrow2"), Bold 19. Hover underlines.
+*/
+.nk-arrow-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+
+    font-weight: 700;
+    font-size: fl(17, 19);
+    line-height: 1.3;
+    text-decoration: none;
+
+    color: var(--nk-dark);
+
+    span {
+        text-decoration: underline;
+        text-decoration-color: transparent;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.18em;
+
+        transition: text-decoration-color 0.2s ease;
+    }
+
+    .nk-icon {
+        width: 15px;
+        height: 15px;
+
+        transition: transform 0.2s ease;
+    }
+
+    &:hover,
+    &:focus-visible {
+        text-decoration: none;
+
+        span {
+            text-decoration-color: currentColor;
+        }
+
+        .nk-icon {
+            transform: translate(2px, -2px);
+        }
+    }
+}

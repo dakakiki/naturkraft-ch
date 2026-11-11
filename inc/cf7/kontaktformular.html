@@ -1,0 +1,44 @@
+<div class="nk-form__grid">
+
+<div class="nk-form__field nk-form__field--bereich" data-nk-select="Bereich *">
+<span class="nk-form__legend" id="nk-bereich-legend">Bereich *</span>
+[radio bereich use_label_element default:get "Gastronomie und Hotellerie" "Handel" "Landwirtschaft" "Verarbeitung und Bündelung" "Marken und Unternehmen" "Förderverein und Förderung" "Investition in die AG" "Sonstiges"]
+</div>
+
+<div class="nk-form__field nk-form__field--organisation">
+<label class="screen-reader-text" for="nk-organisation">Organisation/Betrieb</label>
+[text organisation id:nk-organisation maxlength:150 autocomplete:organization placeholder "Organisation/Betrieb"]
+</div>
+
+<div class="nk-form__field">
+<label class="screen-reader-text" for="nk-name">Name (Pflichtfeld)</label>
+[text* name id:nk-name maxlength:100 autocomplete:name placeholder "Name *"]
+</div>
+
+<div class="nk-form__field">
+<label class="screen-reader-text" for="nk-email">E-Mail-Adresse (Pflichtfeld)</label>
+[email* email id:nk-email maxlength:254 autocomplete:email placeholder "E-Mail-Adresse *"]
+</div>
+
+<div class="nk-form__field">
+<label class="screen-reader-text" for="nk-telefon">Telefonnummer</label>
+[tel telefon id:nk-telefon maxlength:40 autocomplete:tel placeholder "Telefonnummer"]
+</div>
+
+<div class="nk-form__field nk-form__field--anliegen">
+<label class="screen-reader-text" for="nk-anliegen">Anliegen (Pflichtfeld)</label>
+[textarea* anliegen id:nk-anliegen maxlength:5000 placeholder "Anliegen *"]
+[nk_hint]
+</div>
+
+</div>
+
+<div class="nk-form__footer">
+<div class="nk-form__note">
+[nk_privacy]
+[response]
+</div>
+<div class="nk-form__submit">
+[submit class:nk-btn class:nk-btn--solid class:nk-btn--lg "Anfrage senden"]
+</div>
+</div>

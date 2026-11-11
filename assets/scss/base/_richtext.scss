@@ -1,0 +1,61 @@
+@use '../abstracts' as *;
+
+/*
+* Editor content.
+*
+* Paragraphs are Regular 19/26. "Hervorhebung" (h3) is the Bold 24 line the
+* design uses either right after a paragraph (8 apart, as a closing
+* statement) or as the heading of a new block (about 52 above it, 16 to the
+* paragraph it introduces). The colour follows the section: dark on light
+* sections, sage on dark ones.
+*/
+
+.nk-richtext {
+    > * + * {
+        margin-top: 0.4em;
+    }
+
+    p + p {
+        margin-top: 1em;
+    }
+
+    h2 {
+        @include t-h2;
+        margin-top: 1.2em;
+    }
+
+    h3 {
+        @include t-lead;
+        color: var(--nk-accent, currentColor);
+
+        & + p {
+            margin-top: 16px;
+        }
+    }
+
+    p + h3 {
+        margin-top: 8px;
+    }
+
+    /* A highlight that opens a new block, not one that closes the paragraph. */
+    p + h3:has(+ p) {
+        margin-top: fl(36, 52);
+    }
+
+    ul, ol {
+        margin: 1em 0 0;
+        padding-left: 1.2em;
+    }
+
+    li + li {
+        margin-top: 0.3em;
+    }
+
+    a {
+        text-decoration-thickness: 1px;
+    }
+
+    u {
+        text-underline-offset: 0.15em;
+    }
+}

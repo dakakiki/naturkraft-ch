@@ -1,0 +1,197 @@
+@use '../abstracts' as *;
+
+/*
+* Header
+*
+* XD (1440): beige bar 105 tall; logo 294x73 at x140; links Regular 19 with
+* 51 between them; "Anfrage stellen" 152x40 ending at x1300, 56 after the
+* last link. Hover underlines a link.
+*
+* Below $nav-bp the same navigation becomes a full-screen panel; the logo and
+* the burger stay above it.
+*/
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    background-color: var(--nk-beige);
+
+    transition: box-shadow 0.25s ease;
+
+    &.is-scrolled {
+        box-shadow: 0 1px 0 rgba(clr(dark), 0.12);
+    }
+
+    &__inner {
+        @include container;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+
+        min-height: var(--nk-header-h);
+    }
+
+    &__logo {
+        position: relative;
+        z-index: 2;
+
+        display: block;
+        flex: 0 0 auto;
+
+        width: clamp(160px, 20.42vw, 294px);
+
+        line-height: 0;
+        text-decoration: none;
+
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    &__logo-text {
+        font-weight: 900;
+        font-size: 28px;
+        line-height: 1;
+    }
+
+    &__toggle {
+        @include reset-button;
+
+        position: relative;
+        z-index: 2;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 48px;
+        height: 48px;
+        margin-right: -10px;
+
+        color: var(--nk-dark);
+
+        @include focus-ring(0px);
+
+        .site-header__icon-close {
+            display: none;
+        }
+
+        &[aria-expanded="true"] {
+            .site-header__icon-open {
+                display: none;
+            }
+
+            .site-header__icon-close {
+                display: block;
+            }
+        }
+
+        @media (min-width: $nav-bp) {
+            display: none;
+        }
+    }
+}
+
+
+.site-nav {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 48px;
+
+    padding: calc(var(--nk-header-h) + 24px) var(--nk-gutter) 48px;
+
+    overflow-y: auto;
+
+    background-color: var(--nk-beige);
+
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-16px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
+
+    &.is-open {
+        visibility: visible;
+        opacity: 1;
+        transform: none;
+        transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transform: none;
+        transition: none;
+
+        &.is-open {
+            transition: none;
+        }
+    }
+
+    &__list {
+        @include reset-list;
+
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+
+        a {
+            font-weight: 700;
+            font-size: 28px;
+            line-height: 1.15;
+            text-decoration: underline;
+            text-decoration-color: transparent;
+            text-underline-offset: 0.18em;
+
+            transition: text-decoration-color 0.2s ease;
+
+            &:hover,
+            &:focus-visible {
+                text-decoration-color: currentColor;
+            }
+        }
+
+        .is-active > a {
+            text-decoration-color: currentColor;
+        }
+    }
+
+    @media (min-width: $nav-bp) {
+        position: static;
+        z-index: auto;
+
+        flex-direction: row;
+        align-items: center;
+        gap: 56px;
+
+        padding: 0;
+        overflow: visible;
+
+        background: none;
+
+        visibility: visible;
+        opacity: 1;
+        transform: none;
+        transition: none;
+
+        &__list {
+            flex-direction: row;
+            gap: 51px;
+
+            a {
+                font-weight: 400;
+                font-size: 19px;
+                line-height: 1.3;
+            }
+        }
+    }
+}

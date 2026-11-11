@@ -1,0 +1,84 @@
+@use '../abstracts' as *;
+
+/*
+* Text + Karten auf Bild (FRAME 05)
+*
+* XD (1440): 91 below the text two glass cards 572x447, 16 apart; the
+* full-width photo (473) starts 96 below their top and runs 122 past their
+* bottom. In a card: title Bold 24 (titles bottom-aligned across both
+* cards), text Regular 19 376 wide 16 below, solid button 65 below the text,
+* 97 from the card's bottom edge.
+*/
+
+.text-cards {
+    padding-bottom: 0;
+
+    &__stage {
+        position: relative;
+        isolation: isolate;
+
+        margin-top: fl(40, 91);
+        padding-bottom: fl(72, 122);
+    }
+
+    &__media {
+        position: absolute;
+        top: fl(48, 96);
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+
+        overflow: hidden;
+
+        img {
+            @include cover-image;
+        }
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: auto auto auto;
+        gap: 0 16px;
+
+        @include respond-max('md') {
+            grid-template-columns: 1fr;
+            grid-template-rows: none;
+            row-gap: 16px;
+        }
+    }
+
+    &__card {
+        display: grid;
+        grid-row: span 3;
+        grid-template-rows: subgrid;
+        row-gap: 16px;
+
+        padding: fl(36, 99) fl(22, 82) fl(36, 97);
+
+        text-align: center;
+
+        @include respond-max('md') {
+            grid-row: auto;
+            grid-template-rows: auto;
+        }
+    }
+
+    &__title {
+        @include t-lead;
+
+        align-self: end;
+    }
+
+    &__text {
+        max-width: 376px;
+        margin-inline: auto;
+    }
+
+    &__cta {
+        align-self: end;
+
+        margin-top: fl(16, 49);
+    }
+}

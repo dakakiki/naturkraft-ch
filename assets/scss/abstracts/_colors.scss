@@ -1,0 +1,26 @@
+@use "sass:map";
+
+/*
+* Colours
+*
+* The four swatches of the XD file, plus the hairline grey and an error red
+* that keeps AA contrast on beige.
+*/
+
+$palette: (
+    dark:  #1F2F2A,
+    beige: #EAE9E4,
+    sage:  #A3B18A,
+    sand:  #D6D4CD,
+    line:  #707070,
+    white: #FFFFFF,
+    error: #9B1C1C,
+);
+
+@function clr($name) {
+    @if not map.has-key($palette, $name) {
+        @error "Colour '#{$name}' not found.";
+    }
+
+    @return map.get($palette, $name);
+}

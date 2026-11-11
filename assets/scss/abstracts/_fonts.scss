@@ -1,0 +1,27 @@
+/*
+* Source Sans Pro - self-hosted, subset to Latin.
+*
+* The brief allows no external font requests. The XD file uses Regular (400),
+* Bold (700) and Black (900); Italic is there for editor content.
+*/
+
+$font-path: "../../assets/fonts/SourceSansPro/";
+
+$font-faces: (
+    ("Regular", 400, normal),
+    ("It",      400, italic),
+    ("Bold",    700, normal),
+    ("Black",   900, normal),
+);
+
+@each $file, $weight, $style in $font-faces {
+    @font-face {
+        font-family: "Source Sans Pro";
+        src: url("#{$font-path}SourceSansPro-#{$file}.woff2") format("woff2");
+        font-weight: $weight;
+        font-style: $style;
+        font-display: swap;
+    }
+}
+
+$font-primary: "Source Sans Pro", "Segoe UI", system-ui, -apple-system, sans-serif;

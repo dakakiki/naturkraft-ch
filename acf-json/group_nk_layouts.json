@@ -1,0 +1,736 @@
+{
+    "key": "group_nk_layouts",
+    "title": "Seiteninhalte",
+    "fields": [
+        {
+            "key": "field_nk_layouts",
+            "label": "Sektionen",
+            "name": "layouts",
+            "type": "flexible_content",
+            "instructions": "",
+            "required": 0,
+            "button_label": "Sektion hinzufügen",
+            "layouts": {
+                "layout_nk_hero": {
+                    "key": "layout_nk_hero",
+                    "name": "layout_hero",
+                    "label": "Hero (Einstieg)",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_nk_hero_anchor",
+                            "label": "Sprungmarke",
+                            "name": "anchor",
+                            "type": "text",
+                            "instructions": "Ohne #. Wird für Menülinks verwendet, z. B. /#start",
+                            "required": 0,
+                            "default_value": "start",
+                            "wrapper": {
+                                "width": "30"
+                            }
+                        },
+                        {
+                            "key": "field_nk_hero_title",
+                            "label": "Titel (H1)",
+                            "name": "title",
+                            "type": "textarea",
+                            "instructions": "Zeilenumbrüche werden übernommen.",
+                            "required": 1,
+                            "rows": 2,
+                            "new_lines": "",
+                            "wrapper": {
+                                "width": "70"
+                            }
+                        },
+                        {
+                            "key": "field_nk_hero_subtitle",
+                            "label": "Untertitel",
+                            "name": "subtitle",
+                            "type": "textarea",
+                            "instructions": "",
+                            "required": 0,
+                            "rows": 2,
+                            "new_lines": ""
+                        },
+                        {
+                            "key": "field_nk_hero_text",
+                            "label": "Text",
+                            "name": "text",
+                            "type": "textarea",
+                            "instructions": "",
+                            "required": 0,
+                            "rows": 3,
+                            "new_lines": ""
+                        },
+                        {
+                            "key": "field_nk_hero_buttons",
+                            "label": "Buttons",
+                            "name": "buttons",
+                            "type": "repeater",
+                            "instructions": "",
+                            "required": 0,
+                            "layout": "table",
+                            "button_label": "Button hinzufügen",
+                            "max": 3,
+                            "sub_fields": [
+                                {
+                                    "key": "field_nk_hero_button_link",
+                                    "label": "Link",
+                                    "name": "link",
+                                    "type": "link",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "return_format": "array"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_nk_hero_image",
+                            "label": "Bild",
+                            "name": "image",
+                            "type": "image",
+                            "instructions": "Querformat, mind. 2400 px breit.",
+                            "required": 1,
+                            "return_format": "array",
+                            "preview_size": "medium",
+                            "library": "all",
+                            "mime_types": "jpg,jpeg,png,webp"
+                        },
+                        {
+                            "key": "field_nk_hero_ticker",
+                            "label": "Laufband",
+                            "name": "ticker",
+                            "type": "text",
+                            "instructions": "Leer = kein Laufband.",
+                            "required": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_nk_text_images": {
+                    "key": "layout_nk_text_images",
+                    "name": "layout_text_images",
+                    "label": "Text + Bilderreihe",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_nk_ti_anchor",
+                            "label": "Sprungmarke",
+                            "name": "anchor",
+                            "type": "text",
+                            "instructions": "Ohne #. Wird für Menülinks verwendet, z. B. /#rohstoffe",
+                            "required": 0,
+                            "default_value": "rohstoffe",
+                            "wrapper": {
+                                "width": "30"
+                            }
+                        },
+                        {
+                            "key": "field_nk_ti_title",
+                            "label": "Titel",
+                            "name": "title",
+                            "type": "textarea",
+                            "instructions": "Zeilenumbrüche werden übernommen.",
+                            "required": 1,
+                            "rows": 2,
+                            "new_lines": "",
+                            "wrapper": {
+                                "width": "70"
+                            }
+                        },
+                        {
+                            "key": "field_nk_ti_text",
+                            "label": "Text",
+                            "name": "text",
+                            "type": "wysiwyg",
+                            "instructions": "«Hervorhebung» = fetter Satz (24 px).",
+                            "required": 0,
+                            "tabs": "visual",
+                            "toolbar": "naturkraft",
+                            "media_upload": 0,
+                            "delay": 0
+                        },
+                        {
+                            "key": "field_nk_ti_images",
+                            "label": "Bilder",
+                            "name": "images",
+                            "type": "gallery",
+                            "instructions": "Drei Bilder nebeneinander, das mittlere leicht versetzt.",
+                            "required": 0,
+                            "return_format": "array",
+                            "preview_size": "medium",
+                            "library": "all",
+                            "min": 0,
+                            "max": 3,
+                            "mime_types": "jpg,jpeg,png,webp"
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_nk_image_card": {
+                    "key": "layout_nk_image_card",
+                    "name": "layout_image_card",
+                    "label": "Text + Bild mit Karte",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_nk_ic_anchor",
+                            "label": "Sprungmarke",
+                            "name": "anchor",
+                            "type": "text",
+                            "instructions": "Ohne #. Wird für Menülinks verwendet, z. B. /#ansatz",
+                            "required": 0,
+                            "default_value": "ansatz",
+                            "wrapper": {
+                                "width": "30"
+                            }
+                        },
+                        {
+                            "key": "field_nk_ic_title",
+                            "label": "Titel",
+                            "name": "title",
+                            "type": "textarea",
+                            "instructions": "Zeilenumbrüche werden übernommen.",
+                            "required": 1,
+                            "rows": 2,
+                            "new_lines": "",
+                            "wrapper": {
+                                "width": "70"
+                            }
+                        },
+                        {
+                            "key": "field_nk_ic_text",
+                            "label": "Text",
+                            "name": "text",
+                            "type": "wysiwyg",
+                            "instructions": "«Hervorhebung» = fetter Satz (24 px).",
+                            "required": 0,
+                            "tabs": "visual",
+                            "toolbar": "naturkraft",
+                            "media_upload": 0,
+                            "delay": 0
+                        },
+                        {
+                            "key": "field_nk_ic_image",
+                            "label": "Bild",
+                            "name": "image",
+                            "type": "image",
+                            "instructions": "",
+                            "required": 1,
+                            "return_format": "array",
+                            "preview_size": "medium",
+                            "library": "all",
+                            "mime_types": "jpg,jpeg,png,webp"
+                        },
+                        {
+                            "key": "field_nk_ic_card_text",
+                            "label": "Text in der Karte",
+                            "name": "card_text",
+                            "type": "wysiwyg",
+                            "instructions": "Absätze; fett markierte Absätze werden hervorgehoben.",
+                            "required": 0,
+                            "tabs": "visual",
+                            "toolbar": "naturkraft",
+                            "media_upload": 0,
+                            "delay": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_nk_collaboration": {
+                    "key": "layout_nk_collaboration",
+                    "name": "layout_collaboration",
+                    "label": "Zusammenarbeit (Zeilen)",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_nk_co_anchor",
+                            "label": "Sprungmarke",
+                            "name": "anchor",
+                            "type": "text",
+                            "instructions": "Ohne #. Wird für Menülinks verwendet, z. B. /#zusammenarbeit",
+                            "required": 0,
+                            "default_value": "zusammenarbeit",
+                            "wrapper": {
+                                "width": "30"
+                            }
+                        },
+                        {
+                            "key": "field_nk_co_title",
+                            "label": "Titel",
+                            "name": "title",
+                            "type": "textarea",
+                            "instructions": "Zeilenumbrüche werden übernommen.",
+                            "required": 1,
+                            "rows": 2,
+                            "new_lines": "",
+                            "wrapper": {
+                                "width": "70"
+                            }
+                        },
+                        {
+                            "key": "field_nk_co_text",
+                            "label": "Text",
+                            "name": "text",
+                            "type": "wysiwyg",
+                            "instructions": "Optional.",
+                            "required": 0,
+                            "tabs": "visual",
+                            "toolbar": "naturkraft",
+                            "media_upload": 0,
+                            "delay": 0
+                        },
+                        {
+                            "key": "field_nk_co_rows",
+                            "label": "Zeilen",
+                            "name": "rows",
+                            "type": "repeater",
+                            "instructions": "",
+                            "required": 0,
+                            "layout": "block",
+                            "button_label": "Zeile hinzufügen",
+                            "collapsed": "field_nk_co_row_title",
+                            "sub_fields": [
+                                {
+                                    "key": "field_nk_co_row_title",
+                                    "label": "Zielgruppe",
+                                    "name": "title",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 1,
+                                    "wrapper": {
+                                        "width": "35"
+                                    }
+                                },
+                                {
+                                    "key": "field_nk_co_row_text",
+                                    "label": "Text",
+                                    "name": "text",
+                                    "type": "textarea",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "rows": 3,
+                                    "new_lines": "",
+                                    "wrapper": {
+                                        "width": "65"
+                                    }
+                                },
+                                {
+                                    "key": "field_nk_co_row_cta_label",
+                                    "label": "Button-Text",
+                                    "name": "cta_label",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "wrapper": {
+                                        "width": "35"
+                                    }
+                                },
+                                {
+                                    "key": "field_nk_co_row_bereich",
+                                    "label": "Bereich im Kontaktformular",
+                                    "name": "bereich",
+                                    "type": "select",
+                                    "instructions": "Wird beim Klick im Formular vorausgewählt.",
+                                    "required": 0,
+                                    "choices": {},
+                                    "allow_null": 1,
+                                    "ui": 0,
+                                    "return_format": "value",
+                                    "wrapper": {
+                                        "width": "35"
+                                    }
+                                },
+                                {
+                                    "key": "field_nk_co_row_cta_target",
+                                    "label": "Ziel",
+                                    "name": "cta_target",
+                                    "type": "text",
+                                    "instructions": "Sprungmarke des Kontaktformulars.",
+                                    "required": 0,
+                                    "default_value": "#kontakt",
+                                    "wrapper": {
+                                        "width": "30"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_nk_text_cards": {
+                    "key": "layout_nk_text_cards",
+                    "name": "layout_text_cards",
+                    "label": "Text + Karten auf Bild",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_nk_tc_anchor",
+                            "label": "Sprungmarke",
+                            "name": "anchor",
+                            "type": "text",
+                            "instructions": "Ohne #. Wird für Menülinks verwendet, z. B. /#ueber-naturkraft",
+                            "required": 0,
+                            "default_value": "ueber-naturkraft",
+                            "wrapper": {
+                                "width": "30"
+                            }
+                        },
+                        {
+                            "key": "field_nk_tc_title",
+                            "label": "Titel",
+                            "name": "title",
+                            "type": "textarea",
+                            "instructions": "Zeilenumbrüche werden übernommen.",
+                            "required": 1,
+                            "rows": 2,
+                            "new_lines": "",
+                            "wrapper": {
+                                "width": "70"
+                            }
+                        },
+                        {
+                            "key": "field_nk_tc_text",
+                            "label": "Text",
+                            "name": "text",
+                            "type": "wysiwyg",
+                            "instructions": "«Hervorhebung» = fetter Satz (24 px).",
+                            "required": 0,
+                            "tabs": "visual",
+                            "toolbar": "naturkraft",
+                            "media_upload": 0,
+                            "delay": 0
+                        },
+                        {
+                            "key": "field_nk_tc_cards_anchor",
+                            "label": "Sprungmarke der Karten",
+                            "name": "cards_anchor",
+                            "type": "text",
+                            "instructions": "Ohne #. Ziel des Footer-Links «Trägerschaft».",
+                            "required": 0,
+                            "default_value": "traegerschaft"
+                        },
+                        {
+                            "key": "field_nk_tc_image",
+                            "label": "Bild",
+                            "name": "image",
+                            "type": "image",
+                            "instructions": "",
+                            "required": 1,
+                            "return_format": "array",
+                            "preview_size": "medium",
+                            "library": "all",
+                            "mime_types": "jpg,jpeg,png,webp"
+                        },
+                        {
+                            "key": "field_nk_tc_cards",
+                            "label": "Karten",
+                            "name": "cards",
+                            "type": "repeater",
+                            "instructions": "",
+                            "required": 0,
+                            "layout": "block",
+                            "button_label": "Karte hinzufügen",
+                            "max": 2,
+                            "collapsed": "field_nk_tc_card_title",
+                            "sub_fields": [
+                                {
+                                    "key": "field_nk_tc_card_title",
+                                    "label": "Titel",
+                                    "name": "title",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 1,
+                                    "wrapper": {
+                                        "width": "70"
+                                    }
+                                },
+                                {
+                                    "key": "field_nk_tc_card_variant",
+                                    "label": "Farbe",
+                                    "name": "variant",
+                                    "type": "select",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "choices": {
+                                        "beige": "Beige",
+                                        "sage": "Salbei"
+                                    },
+                                    "default_value": "beige",
+                                    "return_format": "value",
+                                    "wrapper": {
+                                        "width": "30"
+                                    }
+                                },
+                                {
+                                    "key": "field_nk_tc_card_text",
+                                    "label": "Text",
+                                    "name": "text",
+                                    "type": "textarea",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "rows": 3,
+                                    "new_lines": ""
+                                },
+                                {
+                                    "key": "field_nk_tc_card_cta_label",
+                                    "label": "Button-Text",
+                                    "name": "cta_label",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "wrapper": {
+                                        "width": "35"
+                                    }
+                                },
+                                {
+                                    "key": "field_nk_tc_card_bereich",
+                                    "label": "Bereich im Kontaktformular",
+                                    "name": "bereich",
+                                    "type": "select",
+                                    "instructions": "Wird beim Klick im Formular vorausgewählt.",
+                                    "required": 0,
+                                    "choices": {},
+                                    "allow_null": 1,
+                                    "ui": 0,
+                                    "return_format": "value",
+                                    "wrapper": {
+                                        "width": "35"
+                                    }
+                                },
+                                {
+                                    "key": "field_nk_tc_card_cta_target",
+                                    "label": "Ziel",
+                                    "name": "cta_target",
+                                    "type": "text",
+                                    "instructions": "Sprungmarke des Kontaktformulars.",
+                                    "required": 0,
+                                    "default_value": "#kontakt",
+                                    "wrapper": {
+                                        "width": "30"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_nk_contact": {
+                    "key": "layout_nk_contact",
+                    "name": "layout_contact",
+                    "label": "Kontaktformular",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_nk_ct_anchor",
+                            "label": "Sprungmarke",
+                            "name": "anchor",
+                            "type": "text",
+                            "instructions": "Ohne #. Wird für Menülinks verwendet, z. B. /#kontakt",
+                            "required": 0,
+                            "default_value": "kontakt",
+                            "wrapper": {
+                                "width": "30"
+                            }
+                        },
+                        {
+                            "key": "field_nk_ct_title",
+                            "label": "Titel",
+                            "name": "title",
+                            "type": "textarea",
+                            "instructions": "Zeilenumbrüche werden übernommen.",
+                            "required": 1,
+                            "rows": 2,
+                            "new_lines": "",
+                            "wrapper": {
+                                "width": "70"
+                            }
+                        },
+                        {
+                            "key": "field_nk_ct_text",
+                            "label": "Text",
+                            "name": "text",
+                            "type": "wysiwyg",
+                            "instructions": "«Hervorhebung» = fetter Satz (24 px).",
+                            "required": 0,
+                            "tabs": "visual",
+                            "toolbar": "naturkraft",
+                            "media_upload": 0,
+                            "delay": 0
+                        },
+                        {
+                            "key": "field_nk_ct_form",
+                            "label": "Formular",
+                            "name": "form",
+                            "type": "post_object",
+                            "instructions": "Contact-Form-7-Formular. Hinweistexte und Datenschutz-Satz: Theme Settings → Kontaktformular.",
+                            "required": 1,
+                            "post_type": [
+                                "wpcf7_contact_form"
+                            ],
+                            "return_format": "id",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 1
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_nk_newsletter": {
+                    "key": "layout_nk_newsletter",
+                    "name": "layout_newsletter",
+                    "label": "Newsletter",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_nk_nl_anchor",
+                            "label": "Sprungmarke",
+                            "name": "anchor",
+                            "type": "text",
+                            "instructions": "Ohne #. Wird für Menülinks verwendet, z. B. /#newsletter",
+                            "required": 0,
+                            "default_value": "newsletter",
+                            "wrapper": {
+                                "width": "30"
+                            }
+                        },
+                        {
+                            "key": "field_nk_nl_title",
+                            "label": "Titel",
+                            "name": "title",
+                            "type": "textarea",
+                            "instructions": "Zeilenumbrüche werden übernommen.",
+                            "required": 1,
+                            "rows": 2,
+                            "new_lines": "",
+                            "wrapper": {
+                                "width": "70"
+                            }
+                        },
+                        {
+                            "key": "field_nk_nl_text",
+                            "label": "Text",
+                            "name": "text",
+                            "type": "wysiwyg",
+                            "instructions": "«Hervorhebung» = fetter Satz (24 px).",
+                            "required": 0,
+                            "tabs": "visual",
+                            "toolbar": "naturkraft",
+                            "media_upload": 0,
+                            "delay": 0
+                        },
+                        {
+                            "key": "field_nk_nl_placeholder",
+                            "label": "Platzhalter E-Mail",
+                            "name": "placeholder",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "default_value": "Ihre E-Mail-Adresse",
+                            "wrapper": {
+                                "width": "50"
+                            }
+                        },
+                        {
+                            "key": "field_nk_nl_button",
+                            "label": "Button-Text",
+                            "name": "button",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "default_value": "Newsletter abonnieren",
+                            "wrapper": {
+                                "width": "50"
+                            }
+                        },
+                        {
+                            "key": "field_nk_nl_consent",
+                            "label": "Hinweis unter dem Feld",
+                            "name": "consent",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "tabs": "visual",
+                            "toolbar": "naturkraft",
+                            "media_upload": 0,
+                            "delay": 0
+                        },
+                        {
+                            "key": "field_nk_nl_msg_success",
+                            "label": "Meldung: Bestätigung ausstehend",
+                            "name": "msg_success",
+                            "type": "textarea",
+                            "instructions": "",
+                            "required": 0,
+                            "rows": 2,
+                            "new_lines": "",
+                            "default_value": "Bitte prüfen Sie Ihr E-Mail-Postfach und bestätigen Sie Ihre Anmeldung über den Link in unserer E-Mail."
+                        },
+                        {
+                            "key": "field_nk_nl_msg_already",
+                            "label": "Meldung: bereits angemeldet",
+                            "name": "msg_already",
+                            "type": "textarea",
+                            "instructions": "",
+                            "required": 0,
+                            "rows": 2,
+                            "new_lines": "",
+                            "default_value": "Diese E-Mail-Adresse ist bereits für den Newsletter angemeldet."
+                        },
+                        {
+                            "key": "field_nk_nl_msg_invalid",
+                            "label": "Meldung: ungültige Adresse",
+                            "name": "msg_invalid",
+                            "type": "textarea",
+                            "instructions": "",
+                            "required": 0,
+                            "rows": 2,
+                            "new_lines": "",
+                            "default_value": "Bitte geben Sie eine gültige E-Mail-Adresse ein."
+                        },
+                        {
+                            "key": "field_nk_nl_msg_error",
+                            "label": "Meldung: Fehler",
+                            "name": "msg_error",
+                            "type": "textarea",
+                            "instructions": "",
+                            "required": 0,
+                            "rows": 2,
+                            "new_lines": "",
+                            "default_value": "Die Anmeldung ist im Moment nicht möglich. Bitte versuchen Sie es später erneut."
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                }
+            },
+            "min": "",
+            "max": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1794385615
+}
