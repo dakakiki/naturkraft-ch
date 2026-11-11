@@ -109,26 +109,14 @@
             "delay": 0
         },
         {
-            "key": "field_nk_ts_tab_seo",
-            "label": "SEO & Fehlerseite",
+            "key": "field_nk_ts_tab_error",
+            "label": "Fehlerseite",
             "name": "",
             "type": "tab",
             "instructions": "",
             "required": 0,
             "placement": "top",
             "endpoint": 0
-        },
-        {
-            "key": "field_nk_ts_meta_description",
-            "label": "Meta-Beschreibung",
-            "name": "meta_description",
-            "type": "textarea",
-            "instructions": "",
-            "required": 0,
-            "rows": 3,
-            "new_lines": "",
-            "maxlength": 300,
-            "default_value": "naturKRAFT verbindet besondere Rohstoffe aus vielfältigen Agrarlandschaften mit Verarbeitung, Gastronomie und Handel. Entdecken Sie neue Anwendungen."
         },
         {
             "key": "field_nk_ts_error_title",
@@ -173,5 +161,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1794385615
+    "modified": 1794388469
 }

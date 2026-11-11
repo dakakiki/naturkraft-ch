@@ -69,6 +69,13 @@ The audience ID is under *Audience → Settings → Audience name and defaults*.
 
 Without the constants the form shows the error message and logs a note to the PHP error log.
 
+## SEO
+
+Page titles and meta descriptions come from **Yoast SEO**; the theme only declares `title-tag` support. Values from the brief:
+
+- Title (front page): «naturKRAFT | Aus gesunder Landschaft.»
+- Meta description: «naturKRAFT verbindet besondere Rohstoffe aus vielfältigen Agrarlandschaften mit Verarbeitung, Gastronomie und Handel. Entdecken Sie neue Anwendungen.»
+
 ## Privacy notes
 
 - Fonts are self-hosted (Source Sans Pro, Latin subset). The emoji script and the s.w.org prefetch are removed, so no external requests are made on page load.

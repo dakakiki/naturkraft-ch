@@ -32,44 +32,10 @@ add_action( 'after_setup_theme', function () {
 } );
 
 
-/**
- * Page title: "naturKRAFT | Aus gesunder Landschaft." on the front page,
- * "Impressum | naturKRAFT" elsewhere.
+/*
+ * Page titles and meta descriptions are left to Yoast SEO; the theme only
+ * declares title-tag support above.
  */
-add_filter( 'document_title_separator', function () {
-	return '|';
-} );
-
-
-/**
- * Meta description from Theme Settings.
- *
- * There is no SEO plugin in this build, so the theme prints the one
- * description the brief defines. A page can override it with its own excerpt.
- */
-add_action( 'wp_head', function () {
-
-	$description = '';
-
-	if ( is_singular() && has_excerpt() ) {
-		$description = get_the_excerpt();
-	}
-
-	if ( '' === $description ) {
-		$description = (string) nk_option( 'meta_description' );
-	}
-
-	$description = trim( wp_strip_all_tags( $description ) );
-
-	if ( '' !== $description ) {
-		printf( "<meta name=\"description\" content=\"%s\">\n", esc_attr( $description ) );
-	}
-}, 2 );
-
-/* Pages get an excerpt box so the description can be set per page. */
-add_action( 'init', function () {
-	add_post_type_support( 'page', 'excerpt' );
-} );
 
 
 /**
