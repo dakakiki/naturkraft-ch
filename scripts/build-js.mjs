@@ -1,3 +1,5 @@
+// build-js.mjs
+
 import fs from "fs";
 import path from "path";
 import { minify } from "terser";
@@ -6,16 +8,9 @@ import { build } from "esbuild";
 const isProd = process.env.NODE_ENV === "production";
 const themeRoot = process.cwd();
 
-/**
- * JS whitelist - source → output.
- *
- * Layout scripts are enqueued only on pages that use the layout, see
- * inc/enqueue.php. Add a new entry here and there together.
- */
 export const entries = [
   { in: "assets/js/custom.js", out: "dist/js/custom.min.js", bundle: false },
   { in: "assets/js/layout_contact.js", out: "dist/js/layout_contact.min.js", bundle: false },
-  { in: "assets/js/layout_newsletter.js", out: "dist/js/layout_newsletter.min.js", bundle: false },
 
   { in: "assets/js/gsap.js", out: "dist/js/gsap.min.js", bundle: true },
 ];
@@ -101,7 +96,6 @@ async function run() {
   }
 }
 
-/* Only build when run directly, not when watch-js imports the entry list. */
 if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(themeRoot, "scripts/build-js.mjs")) {
   run().catch((err) => {
     console.error(err);

@@ -1,30 +1,11 @@
-/*
- * naturKRAFT - site behaviour
- *
- * 1. In-page anchors: smooth scroll that lands under the sticky header
- * 2. Navigation panel (below the desktop breakpoint)
- * 3. Header shadow, back-to-top button, active menu item
- */
+// custom.js
 
-
-/* ------------------------------------------------------------------
- * 1. In-page anchors
- *
- * Every link to a #hash on this page scrolls there; a link to a #hash on
- * the front page from another page goes there and then scrolls. Lazy images
- * further down move the target while the page settles, so the jump waits
- * until the document height stops changing and then corrects itself for a
- * moment (from the KurtFreyAG starter, where this was measured).
- * ------------------------------------------------------------------ */
 document.addEventListener("DOMContentLoaded", function () {
-
     const STORAGE_KEY = "nkPendingAnchor";
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const headerOffset = function (target) {
-
-        /* A target's own scroll-margin-top wins - the CSS sets it to the header height. */
         if (target) {
             const declared = parseFloat(window.getComputedStyle(target).scrollMarginTop);
 
@@ -36,9 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return header ? header.getBoundingClientRect().height : 0;
     };
 
-    /* Where the target will rest - minus any reveal transform still applied. */
     const restingTop = function (el) {
-
         const rect = el.getBoundingClientRect();
         const transform = window.getComputedStyle(el).transform;
 
@@ -55,7 +34,6 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     const wantedY = function (hash) {
-
         let target = null;
 
         try {
@@ -77,10 +55,18 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     };
 
-    const smoothScrollTo = function (targetY, duration) {
+    const jumpTo = function (y) {
+        const html = document.documentElement;
+        const previous = html.style.scrollBehavior;
 
+        html.style.scrollBehavior = "auto";
+        window.scrollTo(0, y);
+        html.style.scrollBehavior = previous;
+    };
+
+    const smoothScrollTo = function (targetY, duration) {
         if (reduceMotion.matches) {
-            window.scrollTo(0, targetY);
+            jumpTo(targetY);
             return;
         }
 
@@ -93,12 +79,11 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         const step = function (now) {
-
             if (!startTime) startTime = now;
 
             const progress = Math.min((now - startTime) / duration, 1);
 
-            window.scrollTo(0, startY + distance * ease(progress));
+            jumpTo(startY + distance * ease(progress));
 
             if (progress < 1) requestAnimationFrame(step);
         };
@@ -108,12 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let holdToken = 0;
 
-    /*
-     * Scroll, then hold the position while late content (lazy images, fonts)
-     * still moves the target. Any user scroll cancels the hold.
-     */
     const scrollToHash = function (hash, smooth) {
-
         if (!hash || hash === "#") return;
 
         holdToken++;
@@ -126,7 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         requestAnimationFrame(function () {
-            /* pointerdown covers dragging the scrollbar, which fires none of the others. */
             ["wheel", "touchstart", "keydown", "pointerdown"].forEach(function (type) {
                 window.addEventListener(type, noteUserScroll, { once: true, passive: true });
             });
@@ -141,13 +120,12 @@ document.addEventListener("DOMContentLoaded", function () {
         if (smooth && duration > 0) {
             smoothScrollTo(first, duration);
         } else {
-            window.scrollTo(0, first);
+            jumpTo(first);
         }
 
         let checks = 0;
 
         const correct = function () {
-
             if (userScrolled || myToken !== holdToken || checks > 15) return;
 
             checks++;
@@ -155,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const wanted = wantedY(hash);
 
             if (wanted !== null && Math.abs(wanted - window.pageYOffset) > 2) {
-                window.scrollTo(0, wanted);
+                jumpTo(wanted);
             }
 
             window.setTimeout(correct, 120);
@@ -174,7 +152,6 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     document.addEventListener("click", function (e) {
-
         if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
 
         const link = e.target.closest("a[href*='#']");
@@ -195,7 +172,6 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!hash || hash === "#") return;
 
         if (samePath(url)) {
-
             let target = null;
 
             try {
@@ -214,7 +190,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             scrollToHash(hash, true);
 
-            /* Keyboard users continue from the target, not from the menu. */
             if (hash !== "#top" && !target.hasAttribute("tabindex")) {
                 target.setAttribute("tabindex", "-1");
             }
@@ -230,12 +205,10 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        /* Another page's anchor: remember it, so the jump runs once that page has settled. */
         if (url.origin === window.location.origin) {
             try {
                 sessionStorage.setItem(STORAGE_KEY, hash);
             } catch (err) {
-                /* Storage blocked - the browser's own jump still works. */
             }
         }
     });
@@ -248,14 +221,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (stored && stored === window.location.hash) return stored;
         } catch (err) {
-            /* ignore */
         }
 
         return window.location.hash;
     })();
 
     if (initialHash && initialHash.length > 1) {
-
         const run = function () {
             scrollToHash(initialHash, false);
         };
@@ -272,12 +243,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
-/* ------------------------------------------------------------------
- * 2. Navigation panel
- * ------------------------------------------------------------------ */
 document.addEventListener("DOMContentLoaded", function () {
-
     const toggle = document.querySelector(".site-header__toggle");
     const panel = document.getElementById("site-nav");
 
@@ -290,11 +256,11 @@ document.addEventListener("DOMContentLoaded", function () {
     let open = false;
 
     const setOpen = function (state, returnFocus) {
-
         open = state;
 
         panel.classList.toggle("is-open", state);
-        document.body.classList.toggle("has-menu-open", state);
+
+        document.documentElement.classList.toggle("has-menu-open", state);
 
         toggle.setAttribute("aria-expanded", state ? "true" : "false");
         toggle.setAttribute("aria-label", state ? toggle.dataset.labelClose : toggle.dataset.labelOpen);
@@ -312,13 +278,11 @@ document.addEventListener("DOMContentLoaded", function () {
         setOpen(!open, true);
     });
 
-    /* Following a link closes the panel; the anchor handler does the scrolling. */
     panel.addEventListener("click", function (e) {
         if (open && e.target.closest("a")) setOpen(false, false);
     });
 
     document.addEventListener("keydown", function (e) {
-
         if (!open) return;
 
         if (e.key === "Escape") {
@@ -328,7 +292,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (e.key !== "Tab") return;
 
-        /* Keep focus inside the panel and its toggle while it covers the page. */
         const items = [toggle].concat(Array.from(panel.querySelectorAll(FOCUSABLE)));
         const first = items[0];
         const last = items[items.length - 1];
@@ -342,18 +305,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    /* Crossing to the desktop layout with the panel open. */
     desktop.addEventListener("change", function (e) {
         if (e.matches && open) setOpen(false, false);
     });
 });
 
-
-/* ------------------------------------------------------------------
- * 3. Header shadow, back to top, active menu item
- * ------------------------------------------------------------------ */
 document.addEventListener("DOMContentLoaded", function () {
-
     const header = document.querySelector(".site-header");
     const footer = document.querySelector(".site-footer");
     const toTop = document.querySelector(".to-top");
@@ -361,7 +318,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let ticking = false;
 
     const update = function () {
-
         ticking = false;
 
         const y = window.pageYOffset;
@@ -372,11 +328,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         toTop.classList.toggle("is-visible", y > window.innerHeight * 0.8);
 
-        /* Once the footer scrolls in, the button rides above it instead of covering its links. */
         if (footer) {
             const overlap = window.innerHeight - footer.getBoundingClientRect().top;
 
-            /* margin, not transform - the fade-in already animates transform. */
             toTop.style.marginBottom = overlap > 0 ? overlap + "px" : "";
         }
     };
@@ -392,7 +346,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     update();
 
-    /* Active menu item: the section whose band covers the line under the header. */
     const links = Array.from(document.querySelectorAll(".site-nav__list a[href*='#']"));
 
     if (!links.length || !("IntersectionObserver" in window)) return;
@@ -400,7 +353,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const sections = [];
 
     links.forEach(function (link) {
-
         let url;
 
         try {
@@ -436,9 +388,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     const observer = new IntersectionObserver(function (entries) {
-
         entries.forEach(function (entry) {
-
             if (!entry.isIntersecting) return;
 
             const match = sections.find(function (s) { return s.section === entry.target; });
@@ -446,11 +396,9 @@ document.addEventListener("DOMContentLoaded", function () {
             if (match) setActive(match.item);
         });
 
-        /* Above the first tracked section nothing is active. */
         const first = sections[0].section.getBoundingClientRect().top;
 
         if (first > window.innerHeight * 0.4) setActive(null);
-
     }, { rootMargin: "-40% 0px -55% 0px" });
 
     sections.forEach(function (s) { observer.observe(s.section); });

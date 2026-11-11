@@ -1,11 +1,9 @@
 <?php
 /**
- * Site footer.
- *
- * @package naturKRAFT
+ * footer.php
  */
 
-$nk_footer_logo = nk_option( 'footer_logo' ) ?: nk_option( 'header_logo' );
+$nk_footer_logo = nk_option( 'footer_logo' );
 $nk_home        = is_front_page() ? '#start' : home_url( '/' );
 ?>
 

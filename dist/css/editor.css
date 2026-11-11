@@ -1,0 +1,303 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("../../assets/fonts/SourceSansPro/SourceSansPro-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("../../assets/fonts/SourceSansPro/SourceSansPro-It.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("../../assets/fonts/SourceSansPro/SourceSansPro-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("../../assets/fonts/SourceSansPro/SourceSansPro-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+body {
+  --nk-dark: #1F2F2A;
+  --nk-beige: #EAE9E4;
+  --nk-sage: #A3B18A;
+  font-family: "Source Sans Pro", "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  font-size: clamp(17px, 16.2571428571px + 0.1904761905vw, 19px);
+  line-height: 1.37;
+  color: var(--nk-dark);
+  background-color: var(--nk-beige);
+  -webkit-font-smoothing: antialiased;
+}
+
+.editor-post-title,
+.wp-block-post-title {
+  font-weight: 900;
+  font-size: clamp(34px, 25.8285714286px + 2.0952380952vw, 56px);
+  line-height: 1.07;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+  color: var(--nk-dark);
+}
+
+.wp-block {
+  max-width: 1160px;
+}
+
+.is-root-container {
+  display: flow-root;
+}
+.is-root-container > * {
+  margin-block: 0;
+}
+.is-root-container > * + * {
+  margin-top: 1em;
+}
+.is-root-container h2,
+.is-root-container h3,
+.is-root-container h4 {
+  color: var(--nk-dark);
+  text-wrap: balance;
+}
+.is-root-container h2 {
+  font-weight: 900;
+  font-size: clamp(28px, 23.5428571429px + 1.1428571429vw, 40px);
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+  margin-top: clamp(40px, 31.0857142857px + 2.2857142857vw, 64px);
+}
+.is-root-container h3 {
+  font-weight: 700;
+  font-size: clamp(20px, 18.5142857143px + 0.380952381vw, 24px);
+  line-height: 1.12;
+  margin-top: clamp(32px, 27.5428571429px + 1.1428571429vw, 44px);
+}
+.is-root-container h4 {
+  font-weight: 700;
+  font-size: clamp(17px, 16.2571428571px + 0.1904761905vw, 19px);
+  line-height: 1.37;
+  margin-top: clamp(24px, 21.0285714286px + 0.7619047619vw, 32px);
+}
+.is-root-container h2 + *,
+.is-root-container h3 + *,
+.is-root-container h4 + * {
+  margin-top: clamp(10px, 8.5142857143px + 0.380952381vw, 14px);
+}
+.is-root-container h2 + h3,
+.is-root-container h3 + h4 {
+  margin-top: clamp(12px, 10.5142857143px + 0.380952381vw, 16px);
+}
+.is-root-container > :first-child {
+  margin-top: 0;
+}
+.is-root-container p {
+  font-weight: 400;
+  font-size: clamp(17px, 16.2571428571px + 0.1904761905vw, 19px);
+  line-height: 1.37;
+}
+.is-root-container a:not(.wp-block-button__link) {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+.is-root-container a:not(.wp-block-button__link):hover {
+  text-decoration-thickness: 2px;
+}
+.is-root-container strong,
+.is-root-container b {
+  font-weight: 700;
+}
+.is-root-container ul,
+.is-root-container ol {
+  font-weight: 400;
+  font-size: clamp(17px, 16.2571428571px + 0.1904761905vw, 19px);
+  line-height: 1.37;
+  padding-left: 1.25em;
+}
+.is-root-container ul {
+  list-style: disc;
+}
+.is-root-container ol {
+  list-style: decimal;
+}
+.is-root-container li {
+  padding-left: 0.2em;
+}
+.is-root-container li + li {
+  margin-top: 0.35em;
+}
+.is-root-container li > ul,
+.is-root-container li > ol {
+  margin-top: 0.35em;
+}
+.is-root-container li > ul {
+  list-style: circle;
+}
+.is-root-container li::marker {
+  color: var(--nk-dark);
+}
+.is-root-container blockquote {
+  margin-inline: 0;
+  padding: 4px 0 4px clamp(20px, 15.5428571429px + 1.1428571429vw, 32px);
+  border-left: 3px solid var(--nk-sage);
+}
+.is-root-container blockquote p {
+  font-style: italic;
+  font-size: clamp(20px, 18.5142857143px + 0.380952381vw, 24px);
+  line-height: 1.35;
+}
+.is-root-container blockquote p + p {
+  margin-top: 0.6em;
+}
+.is-root-container blockquote cite {
+  display: block;
+  margin-top: 12px;
+  font-weight: 400;
+  font-size: clamp(15px, 14.6285714286px + 0.0952380952vw, 16px);
+  line-height: 1.4;
+  font-style: normal;
+  color: rgba(31, 47, 42, 0.75);
+}
+.is-root-container blockquote cite::before {
+  content: "– ";
+}
+.is-root-container figure {
+  margin-inline: 0;
+}
+.is-root-container img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.is-root-container figcaption {
+  margin-top: 10px;
+  font-weight: 400;
+  font-size: clamp(15px, 14.6285714286px + 0.0952380952vw, 16px);
+  line-height: 1.4;
+  color: rgba(31, 47, 42, 0.75);
+}
+.is-root-container .aligncenter {
+  margin-inline: auto;
+  text-align: center;
+}
+.is-root-container .aligncenter img {
+  margin-inline: auto;
+}
+@media (min-width: 640px) {
+  .is-root-container .alignleft,
+  .is-root-container .alignright {
+    max-width: 50%;
+    margin-top: 0.4em;
+    margin-bottom: 1em;
+  }
+}
+@media (min-width: 640px) {
+  .is-root-container .alignleft {
+    float: left;
+    margin-right: clamp(20px, 15.5428571429px + 1.1428571429vw, 32px);
+  }
+}
+@media (min-width: 640px) {
+  .is-root-container .alignright {
+    float: right;
+    margin-left: clamp(20px, 15.5428571429px + 1.1428571429vw, 32px);
+  }
+}
+.is-root-container .wp-block-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+.is-root-container .wp-block-buttons.is-vertical {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.is-root-container .wp-block-buttons.is-content-justification-center {
+  justify-content: center;
+}
+.is-root-container .wp-block-buttons.is-content-justification-right {
+  justify-content: flex-end;
+}
+.is-root-container .wp-block-buttons.is-content-justification-space-between {
+  justify-content: space-between;
+}
+.is-root-container .wp-block-button {
+  margin: 0;
+}
+.is-root-container .wp-block-button__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 6px 20px;
+  font-family: inherit;
+  font-weight: 400;
+  font-size: clamp(17px, 16.2571428571px + 0.1904761905vw, 19px);
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  color: var(--nk-dark);
+  background-color: transparent;
+  border: 1px solid var(--nk-dark);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.is-root-container .wp-block-button__link:hover, .is-root-container .wp-block-button__link:focus-visible {
+  color: var(--nk-beige);
+  background-color: var(--nk-dark);
+  text-decoration: none;
+}
+.is-root-container .wp-block-button__link:focus-visible {
+  outline: 2px solid var(--nk-dark);
+  outline-offset: 3px;
+}
+.is-root-container .wp-block-button__link:disabled, .is-root-container .wp-block-button__link[aria-disabled=true] {
+  cursor: default;
+  opacity: 0.6;
+}
+.is-root-container .wp-block-button__link {
+  color: var(--nk-beige);
+  background-color: var(--nk-dark);
+}
+.is-root-container .wp-block-button__link:hover, .is-root-container .wp-block-button__link:focus-visible {
+  color: var(--nk-dark);
+  background-color: transparent;
+}
+.is-root-container .wp-block-button__link:disabled:hover {
+  color: var(--nk-beige);
+  background-color: var(--nk-dark);
+}
+.is-root-container .is-style-outline .wp-block-button__link {
+  color: var(--nk-dark);
+  background-color: transparent;
+}
+.is-root-container .is-style-outline .wp-block-button__link:hover, .is-root-container .is-style-outline .wp-block-button__link:focus-visible {
+  color: var(--nk-beige);
+  background-color: var(--nk-dark);
+}
+.is-root-container :where(blockquote, figure, .wp-block-buttons),
+.is-root-container :where(blockquote, figure, .wp-block-buttons) + * {
+  margin-top: clamp(32px, 26.0571428571px + 1.5238095238vw, 48px);
+}
+.is-root-container :is(h2, h3, h4) + :is(blockquote, figure, .wp-block-buttons) {
+  margin-top: clamp(16px, 14.5142857143px + 0.380952381vw, 20px);
+}
+@media (min-width: 640px) {
+  .is-root-container .alignleft + *,
+  .is-root-container .alignright + * {
+    margin-top: 0;
+  }
+}

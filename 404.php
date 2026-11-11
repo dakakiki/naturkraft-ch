@@ -1,8 +1,6 @@
 <?php
 /**
- * 404.
- *
- * @package naturKRAFT
+ * 404.php
  */
 
 get_header();

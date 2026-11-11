@@ -1,14 +1,6 @@
-@use '../abstracts' as *;
+// _text-cards.scss – layout_text_cards
 
-/*
-* Text + Karten auf Bild (FRAME 05)
-*
-* XD (1440): 91 below the text two glass cards 572x447, 16 apart; the
-* full-width photo (473) starts 96 below their top and runs 122 past their
-* bottom. In a card: title Bold 24 (titles bottom-aligned across both
-* cards), text Regular 19 376 wide 16 below, solid button 65 below the text,
-* 97 from the card's bottom edge.
-*/
+@use '../abstracts' as *;
 
 .text-cards {
     padding-bottom: 0;

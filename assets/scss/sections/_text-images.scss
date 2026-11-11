@@ -1,11 +1,6 @@
-@use '../abstracts' as *;
+// _text-images.scss – layout_text_images
 
-/*
-* Text + Bilderreihe (FRAME 02)
-*
-* XD (1440): text ends, 75 later three photos 481x329 run edge to edge across
-* the whole width; the middle one sits 29 lower. 77 of beige below it.
-*/
+@use '../abstracts' as *;
 
 .text-images {
     padding-bottom: fl(48, 77);
@@ -19,7 +14,7 @@
 
         @include respond-max('xs') {
             grid-template-columns: 1fr;
-            gap: 8px;
+            gap: 0;
         }
     }
 

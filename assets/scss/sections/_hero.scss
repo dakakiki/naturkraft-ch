@@ -1,13 +1,6 @@
-@use '../abstracts' as *;
+// _hero.scss – layout_hero
 
-/*
-* Hero (FRAME 01)
-*
-* XD (1440): 632 of photo under the header; glass card 670x469 ending at
-* x1300, 82 from the photo's top and bottom edges. Inside: H1 Black 72/72
-* (474 wide), subtitle Bold 24/26 19 below, text Regular 19/26 41 below
-* (572 wide), outline buttons 23 below, 26 apart.
-*/
+@use '../abstracts' as *;
 
 .hero {
     position: relative;
@@ -44,10 +37,6 @@
         justify-content: flex-end;
     }
 
-    /*
-    * The running text is wider than the headline (572 vs 474) and reaches
-    * to 16 from the card's right edge, so the card is padded unevenly.
-    */
     &__card {
         width: min(670px, 100%);
         padding: fl(28, 30) fl(22, 16) fl(30, 47) fl(22, 82);
@@ -67,7 +56,6 @@
         max-width: 474px;
         margin-top: fl(14, 19);
 
-        /* The editor's line break is set for the desktop card; on phones it only breaks badly. */
         @include respond-max('sm') {
             br {
                 display: none;
@@ -101,12 +89,6 @@
     }
 }
 
-
-/*
-* Ticker (XD: 63px dark band, "naturKRAFT befindet sich im Aufbau." in sage
-* every 347px). Two identical halves loop seamlessly by moving the track by
-* exactly one half.
-*/
 .ticker {
     display: flex;
     align-items: center;

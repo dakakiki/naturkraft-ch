@@ -1,12 +1,6 @@
 <?php
 /**
- * Layout: Text + Bild mit Karte (FRAME 03 / #ansatz).
- *
- * XD (1440): dark band with the heading; a full-width photo (457 tall) that
- * starts 59 below the top of an 800x361 glass card, so the card overlaps the
- * band and the photo; 155 of photo below the card.
- *
- * @package naturKRAFT
+ * layout_image_card.php
  */
 
 $nk_anchor = nk_anchor( get_sub_field( 'anchor' ) );

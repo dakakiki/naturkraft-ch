@@ -1,15 +1,6 @@
-@use '../abstracts' as *;
+// _contact.scss – layout_contact
 
-/*
-* Kontaktformular (FRAME 06)
-*
-* XD (1440): 55 below the highlighted line the form: three 376 columns with
-* 16 between, rows 48 tall and 32 apart - Bereich | Organisation (2 cols),
-* Name | E-Mail | Telefon, Anliegen full width (96 tall). Fields: 1px dark
-* border, radius 3, placeholder at 50%. 48 below: privacy note (580 wide)
-* left, "Anfrage senden" 278x48 right; the result message bold under the
-* note.
-*/
+@use '../abstracts' as *;
 
 .contact {
     padding-bottom: fl(56, 84);
@@ -19,8 +10,6 @@
     }
 }
 
-
-/* CF7 chrome the plugin stylesheet would otherwise handle (it is not loaded). */
 .wpcf7 {
     .screen-reader-response {
         @include visually-hidden;
@@ -30,7 +19,7 @@
         display: none;
     }
 
-    form .wpcf7-response-output {
+    .wpcf7-response-output {
         margin: 0;
     }
 
@@ -40,7 +29,6 @@
         display: none;
     }
 }
-
 
 .nk-form {
     position: relative;
@@ -90,7 +78,6 @@
         height: $control-h;
         padding: 0 23px;
 
-        /* 16px minimum keeps iOS from zooming into the field. */
         font-size: max(16px, #{fl(17, 19)});
         line-height: 1.37;
 
@@ -126,13 +113,7 @@
     }
 
     .wpcf7-not-valid-tip {
-        display: block;
-        margin-top: 6px;
-
-        font-weight: 700;
-        @include t-small;
-
-        color: var(--nk-error);
+        @include visually-hidden;
     }
 
     &__hint {
@@ -180,25 +161,32 @@
 
         display: flex;
         flex: 0 0 auto;
-        align-items: center;
-        flex-direction: row-reverse;
-        gap: 14px;
+        min-width: min(278px, 100%);
+        max-width: 100%;
 
         input[type="submit"] {
+            width: 100%;
+            padding-inline: 48px;
+
             -webkit-appearance: none;
             appearance: none;
         }
     }
 
     .wpcf7-spinner {
-        display: inline-block;
-        width: 22px;
-        height: 22px;
+        position: absolute;
+        top: 50%;
+        right: 16px;
 
-        border: 2px solid rgba(clr(dark), 0.25);
-        border-top-color: var(--nk-dark);
+        width: 18px;
+        height: 18px;
+        margin-top: -9px;
+
+        border: 2px solid rgba(clr(beige), 0.35);
+        border-top-color: var(--nk-beige);
         border-radius: 50%;
 
+        pointer-events: none;
         visibility: hidden;
 
         animation: nk-spin 0.8s linear infinite;
@@ -206,6 +194,10 @@
 
     &.submitting .wpcf7-spinner {
         visibility: visible;
+    }
+
+    &.submitting input[type="submit"]:disabled {
+        opacity: 1;
     }
 }
 
@@ -215,24 +207,9 @@
     }
 }
 
-
-/*
-* Area dropdown
-*
-* XD (Kontakt artboard): the closed field shows "Bereich" with a dark 48x48
-* tab on the right; open, a dark 642x209 panel drops from the field's lower
-* edge with the eight areas in two columns - beige 24x24 boxes, labels in
-* beige Regular 19, 39 from row to row; the chosen one carries the tick.
-*
-* It is the CF7 radio group, enhanced by layout_contact.js (.is-enhanced):
-* a button toggles the group, which stays a real radio group for keyboard
-* and screen reader users. Without JS the group is simply shown open.
-*/
-
 $check-icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cpolyline fill='none' stroke='%231f2f2a' stroke-width='90' points='761.97 187.23 428.21 726.02 238.03 451.39'/%3E%3C/svg%3E";
 
 .nk-select {
-
     .nk-form__legend {
         display: block;
         margin-bottom: 8px;
@@ -244,7 +221,7 @@ $check-icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewB
         grid-column: 1 / -1;
     }
 
-    .wpcf7-radio {
+    .wpcf7-checkbox {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         grid-template-rows: repeat(4, auto);
@@ -284,7 +261,7 @@ $check-icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewB
         }
     }
 
-    input[type="radio"] {
+    input[type="checkbox"] {
         flex: 0 0 24px;
 
         width: 24px;
@@ -317,7 +294,6 @@ $check-icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewB
         line-height: 1.37;
     }
 
-    /* Enhanced: closed field + drop-down panel. */
     &.is-enhanced {
         .nk-form__legend {
             @include visually-hidden;
@@ -340,7 +316,6 @@ $check-icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewB
             display: block;
         }
 
-        /* The tip inside the panel is mirrored under the field instead. */
         .wpcf7-not-valid-tip {
             display: none;
         }
@@ -421,16 +396,6 @@ $check-icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewB
     }
 
     &__error {
-        display: block;
-        margin-top: 6px;
-
-        font-weight: 700;
-        @include t-small;
-
-        color: var(--nk-error);
-
-        &:empty {
-            display: none;
-        }
+        @include visually-hidden;
     }
 }

@@ -1,13 +1,6 @@
 <?php
 /**
- * Section heading block: centred title (h2) and rich text.
- *
- * @var array $args {
- *     @type string $title
- *     @type string $text  WYSIWYG HTML.
- * }
- *
- * @package naturKRAFT
+ * section-head.php – all layouts
  */
 
 $nk_title = trim( (string) ( $args['title'] ?? '' ) );

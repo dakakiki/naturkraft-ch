@@ -1,12 +1,6 @@
 <?php
 /**
- * Layout: Text + Karten auf Bild (FRAME 05 / #ueber-naturkraft, #traegerschaft).
- *
- * XD (1440): dark band with the heading text; two 572x447 glass cards (beige
- * and sage) that start 96 above a full-width photo (473 tall) and end 122
- * above its bottom edge. The card row is the "Trägerschaft" target.
- *
- * @package naturKRAFT
+ * layout_text_cards.php
  */
 
 $nk_anchor       = nk_anchor( get_sub_field( 'anchor' ) );

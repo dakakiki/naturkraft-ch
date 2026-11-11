@@ -1,12 +1,6 @@
-@use '../abstracts' as *;
+// _newsletter.scss – layout_newsletter
 
-/*
-* Newsletter (FRAME 07)
-*
-* XD (1440): sage band; 48 below the text a beige field 866x48 without a
-* border and the 278x48 button 16 to its right; consent text (658 wide) 55
-* below, the confirmation in bold 15 under it.
-*/
+@use '../abstracts' as *;
 
 .newsletter {
     padding-bottom: fl(56, 77);
@@ -22,11 +16,16 @@
         @include respond-max('sm') {
             flex-direction: column;
         }
+
+        .wpcf7-form-control-wrap {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
     }
 
     &__input {
-        flex: 1 1 auto;
-        min-width: 0;
+        display: block;
+        width: 100%;
         height: $control-h;
         padding: 0 28px;
 
@@ -58,6 +57,22 @@
 
     &__button {
         flex: 0 0 auto;
+
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    .wpcf7-not-valid-tip {
+        @include visually-hidden;
+    }
+
+    .wpcf7-spinner {
+        display: none;
+    }
+
+    form.submitting &__button {
+        pointer-events: none;
+        opacity: 0.7;
     }
 
     &__consent {
@@ -65,25 +80,19 @@
         margin-top: fl(28, 55);
     }
 
-    &__message {
+    .wpcf7-response-output {
         max-width: 856px;
         margin-top: 15px;
 
         font-weight: 700;
-
-        &:empty {
-            display: none;
-        }
-
-        &[data-status="invalid"],
-        &[data-status="error"] {
-            padding-left: 14px;
-            border-left: 3px solid var(--nk-error);
-        }
     }
 
-    &__form.is-busy &__button {
-        pointer-events: none;
-        opacity: 0.7;
+    form.invalid .wpcf7-response-output,
+    form.unaccepted .wpcf7-response-output,
+    form.failed .wpcf7-response-output,
+    form.aborted .wpcf7-response-output,
+    form.spam .wpcf7-response-output {
+        padding-left: 14px;
+        border-left: 3px solid var(--nk-error);
     }
 }

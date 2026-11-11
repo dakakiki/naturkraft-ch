@@ -1,12 +1,6 @@
 <?php
 /**
- * Site header.
- *
- * One navigation in the DOM: inline on desktop, an overlay panel below the
- * lg breakpoint. The burger button stays on top of the panel and turns into
- * its close button.
- *
- * @package naturKRAFT
+ * header.php
  */
 
 $nk_logo   = nk_option( 'header_logo' );
@@ -20,11 +14,6 @@ $nk_home   = is_front_page() ? '#start' : home_url( '/' );
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<script>
-		/*
-		 * Scroll reveals start hidden only while JS is confirmed alive. If the
-		 * animation bundle never finishes, the flag is dropped and all content
-		 * is shown.
-		 */
 		(function () {
 			var root = document.documentElement;
 			root.classList.add('js');

@@ -1,11 +1,6 @@
 <?php
 /**
- * Theme Settings options page.
- *
- * The field group "Theme Settings" (acf-json/group_nk_theme_settings.json)
- * is bound to this page.
- *
- * @package naturKRAFT
+ * options-page.php
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -13,7 +8,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 add_action( 'acf/init', function () {
-
 	if ( ! function_exists( 'acf_add_options_page' ) ) {
 		return;
 	}

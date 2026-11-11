@@ -1,0 +1,33 @@
+// editor.scss – block editor
+
+@use 'abstracts' as *;
+@use 'base/content';
+
+body {
+    --nk-dark: #{clr(dark)};
+    --nk-beige: #{clr(beige)};
+    --nk-sage: #{clr(sage)};
+
+    font-family: $font-primary;
+    @include t-body;
+
+    color: var(--nk-dark);
+    background-color: var(--nk-beige);
+
+    -webkit-font-smoothing: antialiased;
+}
+
+.editor-post-title,
+.wp-block-post-title {
+    @include t-h2;
+
+    color: var(--nk-dark);
+}
+
+.wp-block {
+    max-width: $container;
+}
+
+.is-root-container {
+    @include content.page-content;
+}

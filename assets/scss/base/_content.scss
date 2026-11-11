@@ -1,0 +1,264 @@
+// _content.scss – plain pages (page.php) and the block editor
+
+@use '../abstracts' as *;
+
+$flow:        1em;
+$block-space: fl(32, 48);
+$h2-space:    fl(40, 64);
+$h3-space:    fl(32, 44);
+$h4-space:    fl(24, 32);
+$after-head:  fl(10, 14);
+
+@mixin page-content {
+    display: flow-root;
+
+    > * {
+        margin-block: 0;
+    }
+
+    > * + * {
+        margin-top: $flow;
+    }
+
+    h2,
+    h3,
+    h4 {
+        color: var(--nk-dark);
+        text-wrap: balance;
+    }
+
+    h2 {
+        font-weight: 900;
+        font-size: fl(28, 40);
+        line-height: 1.1;
+        letter-spacing: -0.005em;
+
+        margin-top: $h2-space;
+    }
+
+    h3 {
+        @include t-lead;
+
+        margin-top: $h3-space;
+    }
+
+    h4 {
+        font-weight: 700;
+        font-size: fl(17, 19);
+        line-height: 1.37;
+
+        margin-top: $h4-space;
+    }
+
+    h2 + *,
+    h3 + *,
+    h4 + * {
+        margin-top: $after-head;
+    }
+
+    h2 + h3,
+    h3 + h4 {
+        margin-top: fl(12, 16);
+    }
+
+    > :first-child {
+        margin-top: 0;
+    }
+
+    p {
+        @include t-body;
+    }
+
+    a:not(.wp-block-button__link) {
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.15em;
+
+        &:hover {
+            text-decoration-thickness: 2px;
+        }
+    }
+
+    strong,
+    b {
+        font-weight: 700;
+    }
+
+    ul,
+    ol {
+        @include t-body;
+
+        padding-left: 1.25em;
+    }
+
+    ul {
+        list-style: disc;
+    }
+
+    ol {
+        list-style: decimal;
+    }
+
+    li {
+        padding-left: 0.2em;
+
+        + li {
+            margin-top: 0.35em;
+        }
+
+        > ul,
+        > ol {
+            margin-top: 0.35em;
+        }
+
+        > ul {
+            list-style: circle;
+        }
+    }
+
+    li::marker {
+        color: var(--nk-dark);
+    }
+
+    blockquote {
+        margin-inline: 0;
+        padding: 4px 0 4px fl(20, 32);
+
+        border-left: 3px solid var(--nk-sage);
+
+        p {
+            font-style: italic;
+            font-size: fl(20, 24);
+            line-height: 1.35;
+        }
+
+        p + p {
+            margin-top: 0.6em;
+        }
+
+        cite {
+            display: block;
+            margin-top: 12px;
+
+            @include t-small;
+            font-style: normal;
+
+            color: rgba(clr(dark), 0.75);
+
+            &::before {
+                content: "– ";
+            }
+        }
+    }
+
+    figure {
+        margin-inline: 0;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+
+    figcaption {
+        margin-top: 10px;
+
+        @include t-small;
+
+        color: rgba(clr(dark), 0.75);
+    }
+
+    .aligncenter {
+        margin-inline: auto;
+
+        text-align: center;
+
+        img {
+            margin-inline: auto;
+        }
+    }
+
+    .alignleft,
+    .alignright {
+        @include respond-min('sm') {
+            max-width: 50%;
+            margin-top: 0.4em;
+            margin-bottom: 1em;
+        }
+    }
+
+    .alignleft {
+        @include respond-min('sm') {
+            float: left;
+            margin-right: fl(20, 32);
+        }
+    }
+
+    .alignright {
+        @include respond-min('sm') {
+            float: right;
+            margin-left: fl(20, 32);
+        }
+    }
+
+    .wp-block-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 16px;
+
+        &.is-vertical {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        &.is-content-justification-center {
+            justify-content: center;
+        }
+
+        &.is-content-justification-right {
+            justify-content: flex-end;
+        }
+
+        &.is-content-justification-space-between {
+            justify-content: space-between;
+        }
+    }
+
+    .wp-block-button {
+        margin: 0;
+    }
+
+    .wp-block-button__link {
+        @include btn;
+        @include btn-solid;
+    }
+
+    .is-style-outline .wp-block-button__link {
+        color: var(--nk-dark);
+        background-color: transparent;
+
+        &:hover,
+        &:focus-visible {
+            color: var(--nk-beige);
+            background-color: var(--nk-dark);
+        }
+    }
+
+    :where(blockquote, figure, .wp-block-buttons),
+    :where(blockquote, figure, .wp-block-buttons) + * {
+        margin-top: $block-space;
+    }
+
+    :is(h2, h3, h4) + :is(blockquote, figure, .wp-block-buttons) {
+        margin-top: fl(16, 20);
+    }
+
+    .alignleft + *,
+    .alignright + * {
+        @include respond-min('sm') {
+            margin-top: 0;
+        }
+    }
+}

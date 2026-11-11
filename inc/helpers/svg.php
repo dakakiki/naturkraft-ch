@@ -1,22 +1,18 @@
 <?php
+/**
+ * svg.php
+ */
+
 if ( ! defined('ABSPATH') ) exit;
 
-
-/**
- * SVG unique IDs
- */
 function inline_svg_with_unique_ids($url, $prefix) {
-
-    // Convert URL to local path
     $upload_dir = wp_get_upload_dir();
     $baseurl    = $upload_dir['baseurl'];
     $basedir    = $upload_dir['basedir'];
 
-    // If SVG is in uploads
     if (strpos($url, $baseurl) === 0) {
         $file_path = str_replace($baseurl, $basedir, $url);
     } else {
-        // If SVG is inside theme
         $file_path = str_replace(
             get_template_directory_uri(),
             get_template_directory(),
@@ -31,10 +27,8 @@ function inline_svg_with_unique_ids($url, $prefix) {
     $svg = file_get_contents($file_path);
     if (!$svg) return '';
 
-    // Remove XML declaration
     $svg = preg_replace('/<\?xml.*?\?>\s*/', '', $svg);
 
-    // Collect all ids
     if (preg_match_all('/\sid="([^"]+)"/', $svg, $m)) {
         $ids = array_unique($m[1]);
 
@@ -50,7 +44,6 @@ function inline_svg_with_unique_ids($url, $prefix) {
 
     return $svg;
 }
-
 
 add_filter('upload_mimes', function ($mimes) {
   if (current_user_can('manage_options')) {

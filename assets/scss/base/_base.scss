@@ -1,3 +1,5 @@
+// _base.scss
+
 @use '../abstracts' as *;
 
 :root {
@@ -11,7 +13,6 @@
     --nk-gutter: clamp(20px, 4vw, 40px);
     --nk-header-h: #{$header-h-rsp};
 
-    /* XD: 79 from a section's top edge to its title. */
     --nk-section-pad: #{fl(56, 80)};
 
     @media (min-width: $nav-bp) {
@@ -29,10 +30,6 @@ html {
     margin: 0;
     padding: 0;
 
-    /*
-    * clip, not hidden: hidden turns html into a scroll container and a
-    * position: sticky header would stick to that instead of the viewport.
-    */
     overflow-x: clip;
 
     -webkit-text-size-adjust: 100%;
@@ -40,6 +37,10 @@ html {
 
     @media (prefers-reduced-motion: no-preference) {
         scroll-behavior: smooth;
+    }
+
+    &.has-menu-open {
+        overflow: hidden;
     }
 }
 
@@ -57,10 +58,6 @@ body {
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-
-    &.has-menu-open {
-        overflow: hidden;
-    }
 }
 
 img,
@@ -110,15 +107,10 @@ textarea {
     color: inherit;
 }
 
-/*
-* Sections that are anchor targets land right under the fixed bar - native
-* jumps and the scripted smooth scroll both read this.
-*/
 [id] {
     scroll-margin-top: var(--nk-header-h);
 }
 
-/* Sections focused after an in-page jump - focus moves, no ring is drawn. */
 .site-main,
 [tabindex="-1"] {
     &:focus {
@@ -126,9 +118,6 @@ textarea {
     }
 }
 
-/*
-* Accessibility helpers
-*/
 .screen-reader-text {
     @include visually-hidden;
 }
@@ -148,7 +137,7 @@ textarea {
 
     transform: translateY(-200%);
 
-    &:focus {
+    &:focus-visible {
         transform: none;
         outline: 2px solid var(--nk-sage);
         outline-offset: 2px;

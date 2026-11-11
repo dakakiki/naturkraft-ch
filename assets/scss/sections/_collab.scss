@@ -1,12 +1,6 @@
-@use '../abstracts' as *;
+// _collab.scss – layout_collaboration
 
-/*
-* Zusammenarbeit (FRAME 04)
-*
-* XD (1440): 91 below the title the first hairline; rows of 180 between
-* hairlines, three 376 columns with 16 between - audience Bold 24, text
-* Regular 19, link right-aligned. 124 of beige after the last line.
-*/
+@use '../abstracts' as *;
 
 .collab {
     padding-bottom: fl(64, 124);

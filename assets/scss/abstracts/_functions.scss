@@ -1,11 +1,8 @@
-/*
-* Functions
-*/
+// _functions.scss
 
 @use "sass:math";
 @use "sass:list";
 
-/* fluid values from max to min vw */
 @function fluid($from, $to, $min-vw, $max-vw, $unit: px, $base: 16) {
   @if $min-vw == $max-vw {
     @error "$min-vw and $max-vw must be different.";
@@ -36,12 +33,10 @@
   );
 }
 
-/* convert px to rem */
 @function rem($px, $base: 16) {
   @return math.div($px, $base) * 1rem;
 }
 
-/* EM helper for the component scalling */
 @function em($px, $base: 16) {
   @return math.div($px, $base) * 1em;
 }

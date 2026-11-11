@@ -1,8 +1,9 @@
+// watch-js.mjs
+
 import chokidar from "chokidar";
 import { exec } from "child_process";
 import { entries } from "./build-js.mjs";
 
-/* One list to maintain: the watcher follows the build whitelist. */
 const files = entries.map((entry) => entry.in);
 
 let running = false;

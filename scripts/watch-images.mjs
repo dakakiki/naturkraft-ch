@@ -1,3 +1,5 @@
+// watch-images.mjs
+
 import chokidar from "chokidar";
 import fs from "fs";
 import path from "path";
@@ -45,7 +47,6 @@ function removeFolder(srcDir) {
   }
 }
 
-// Initial setup: make sure dist/images exists and do an initial sync if src exists
 if (fs.existsSync(srcRoot)) {
   ensureDir(outRoot);
   try {

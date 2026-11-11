@@ -1,11 +1,6 @@
 <?php
 /**
- * Fallback template.
- *
- * The site has no blog; anything that is not a page falls back to the plain
- * content view so nothing renders blank.
- *
- * @package naturKRAFT
+ * index.php
  */
 
 get_header();

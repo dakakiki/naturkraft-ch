@@ -1,12 +1,6 @@
 <?php
 /**
- * Layout: Kontaktformular (FRAME 06 / #kontakt).
- *
- * The form is a Contact Form 7 form (markup reference:
- * inc/cf7/kontaktformular.html); layout_contact.js turns the area radio list
- * into the dropdown from the XD file and handles preselection.
- *
- * @package naturKRAFT
+ * layout_contact.php
  */
 
 $nk_anchor = nk_anchor( get_sub_field( 'anchor' ) );

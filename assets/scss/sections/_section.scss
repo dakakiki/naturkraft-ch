@@ -1,12 +1,6 @@
-@use '../abstracts' as *;
+// _section.scss – all layouts
 
-/*
-* Shared section frame.
-*
-* Every section is a full-width colour band; its content sits on the 1160
-* column. --nk-accent is the colour of the highlighted (h3) lines: dark on
-* light bands, sage on the dark ones.
-*/
+@use '../abstracts' as *;
 
 .nk-section {
     position: relative;
@@ -47,16 +41,11 @@
         @include t-h2;
     }
 
-    /* XD: 31 from the title's last line to the text. */
     &__text {
         margin-top: fl(18, 31);
     }
 }
 
-
-/*
-* Frosted glass cards. Text on them is always dark.
-*/
 .nk-glass {
     color: var(--nk-dark);
     border-radius: $radius;

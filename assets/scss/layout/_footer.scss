@@ -1,11 +1,6 @@
-@use '../abstracts' as *;
+// _footer.scss
 
-/*
-* Footer
-*
-* XD (1440): beige bar 105 tall, logo 294x73 at x140, links Regular 19 with
-* 62 between them, the last one ending at x1300. Hover underlines.
-*/
+@use '../abstracts' as *;
 
 .site-footer {
     background-color: var(--nk-beige);
@@ -24,9 +19,12 @@
 
         @include respond-max('md') {
             flex-direction: column;
-            align-items: flex-start;
+            align-items: center;
+            justify-content: center;
 
             padding-block: 32px 40px;
+
+            text-align: center;
         }
     }
 
@@ -59,6 +57,12 @@
         flex-wrap: wrap;
         gap: 10px fl(24, 62);
 
+        @include respond-max('md') {
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
         a {
             font-size: fl(17, 19);
             line-height: 1.3;
@@ -76,10 +80,6 @@
     }
 }
 
-
-/*
-* Back to top (XD "Page arrow"): dark 53x53 square, white chevron.
-*/
 .to-top {
     position: fixed;
     right: fl(16, 30);
@@ -125,7 +125,6 @@
         outline-offset: 3px;
     }
 
-    /* Without JS it stays available rather than hidden forever. */
     html:not(.js) & {
         opacity: 1;
         visibility: visible;

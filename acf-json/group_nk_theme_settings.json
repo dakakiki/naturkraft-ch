@@ -28,7 +28,7 @@
             "label": "Button",
             "name": "header_button",
             "type": "link",
-            "instructions": "z. B. «Anfrage stellen» → #kontakt",
+            "instructions": "",
             "required": 0,
             "return_format": "array"
         },
@@ -47,7 +47,7 @@
             "label": "Logo im Footer",
             "name": "footer_logo",
             "type": "image",
-            "instructions": "Leer = Logo aus dem Header. Links: Design → Menüs → «Footer».",
+            "instructions": "",
             "required": 0,
             "return_format": "array",
             "preview_size": "medium",
@@ -161,5 +161,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1794388469
+    "modified": 1794401205
 }

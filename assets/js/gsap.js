@@ -1,4 +1,4 @@
-// assets/js/gsap.js - scroll reveals (bundled with GSAP by esbuild)
+// gsap.js
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -13,21 +13,9 @@ function prefersReducedMotion() {
     return reduceMotionQuery.matches;
 }
 
-/**
- * Prepared reveals that have not played yet - swept after a tab or bfcache
- * restore, when ScrollTrigger may hold stale positions.
- */
 const pendingReveals = [];
 
-/**
- * One reveal.
- *
- * Start state via gsap.set(), reveal via a plain gsap.to() from a one-shot
- * trigger: a gsap.from() that owns a ScrollTrigger is reverted on every
- * refresh, which can push already visible content back to opacity 0.
- */
 function createReveal(targets, trigger, from, options) {
-
     const opts = options || {};
     const items = Array.isArray(targets) ? targets : [targets];
 
@@ -40,7 +28,6 @@ function createReveal(targets, trigger, from, options) {
     const entry = { trigger: trigger, play: null };
 
     const play = function () {
-
         if (played) return;
 
         played = true;
@@ -79,13 +66,11 @@ function createReveal(targets, trigger, from, options) {
 }
 
 function revealVisiblePending() {
-
     if (!pendingReveals.length) return;
 
     const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
 
     pendingReveals.slice().forEach(function (entry) {
-
         if (!entry.trigger || !entry.trigger.isConnected) {
             entry.play();
             return;
@@ -99,12 +84,7 @@ function revealVisiblePending() {
 
 window.revealVisiblePending = revealVisiblePending;
 
-/**
- * .fade-up items reveal on their own; inside a .group-fade-up they reveal
- * together, staggered, when the group enters.
- */
 window.initFadeUpAnimations = function (scope, animateNow) {
-
     scope = scope || document;
 
     const name = "fade-up";
@@ -117,7 +97,6 @@ window.initFadeUpAnimations = function (scope, animateNow) {
     if (scope.classList && scope.classList.contains(groupName)) groups.unshift(scope);
 
     groups.forEach(function (group) {
-
         const items = Array.from(group.querySelectorAll(itemSelector))
             .filter(function (item) { return item.closest("." + groupName) === group; });
 
@@ -138,17 +117,12 @@ window.initFadeUpAnimations = function (scope, animateNow) {
     });
 };
 
-/**
- * Image rows: the children reveal one after the other.
- */
 window.initCardReveal = function (scope, animateNow) {
-
     scope = scope || document;
 
     const grids = Array.from(scope.querySelectorAll("[data-gsap-cards]"));
 
     grids.forEach(function (grid) {
-
         const cards = Array.from(grid.children).filter(function (card) {
             return !card.classList.contains("cards-initialized");
         });
@@ -166,8 +140,6 @@ window.initCardReveal = function (scope, animateNow) {
 };
 
 function initializeScrollAnimations() {
-
-    /* Above the fold: play at once instead of waiting for a trigger. */
     document.querySelectorAll("[data-animate-now]").forEach(function (scope) {
         window.initFadeUpAnimations(scope, true);
     });
@@ -177,7 +149,6 @@ function initializeScrollAnimations() {
 
     ScrollTrigger.refresh();
 
-    /* Only now may the CSS keep hiding things - the bundle ran to the end. */
     window.__animationsReady = true;
 
     revealVisiblePending();
@@ -189,7 +160,6 @@ if (document.readyState === "loading") {
     initializeScrollAnimations();
 }
 
-/* Positions are measured before images and fonts settle - re-measure. */
 window.addEventListener("load", function () {
     ScrollTrigger.refresh();
     revealVisiblePending();
@@ -203,7 +173,6 @@ if (document.fonts && document.fonts.ready) {
 }
 
 function recoverAfterRestore() {
-
     if (document.hidden) return;
 
     ScrollTrigger.refresh();

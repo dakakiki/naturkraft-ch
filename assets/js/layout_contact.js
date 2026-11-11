@@ -1,19 +1,10 @@
-/*
- * Contact form (CF7) enhancements
- *
- * 1. Area dropdown - the CF7 radio group becomes the XD dropdown: a button
- *    showing the chosen area, opening the group as a panel. It stays a real
- *    radio group (arrow keys, screen readers).
- * 2. Preselection - any [data-nk-bereich] link (collaboration rows, cards)
- *    selects its area; whatever was typed into the form stays.
- * 3. Area hints - the help text under "Anliegen" follows the area.
- * 4. Double sending - a second submit while one is running is ignored and
- *    the button is disabled until CF7 answers.
- */
+// layout_contact.js – layout_contact
+
 document.addEventListener("DOMContentLoaded", function () {
+    const AREA = "[name='bereich[]']";
 
     const forms = Array.from(document.querySelectorAll("form.nk-form, .nk-form form, form.wpcf7-form"))
-        .filter(function (form) { return form.querySelector("[name='bereich']"); });
+        .filter(function (form) { return form.querySelector(AREA); });
 
     if (!forms.length) return;
 
@@ -24,57 +15,45 @@ document.addEventListener("DOMContentLoaded", function () {
         guardDoubleSubmit(form);
 
         form.addEventListener("reset", function () {
-            /* CF7 resets after a successful send - the button text has to follow. */
             window.setTimeout(function () {
                 if (select) select.sync();
-                form.querySelectorAll("[name='bereich']").forEach(function (radio) {
-                    radio.dispatchEvent(new Event("nk:sync"));
-                });
                 updateHint(form);
             }, 0);
         });
     });
 
-    /* 2. Preselection from call-to-action links anywhere on the page. */
     document.addEventListener("click", function (e) {
-
         const link = e.target.closest("[data-nk-bereich]");
 
         if (!link) return;
 
         const value = link.getAttribute("data-nk-bereich");
         const form = forms[0];
-        const radio = Array.from(form.querySelectorAll("[name='bereich']"))
-            .find(function (r) { return r.value === value; });
+        const box = Array.from(form.querySelectorAll(AREA))
+            .find(function (b) { return b.value === value; });
 
-        if (!radio) return;
+        if (!box || box.checked) return;
 
-        /*
-         * Focus is left to the anchor handler: it moves to the contact
-         * section, so the next Tab lands on this very field.
-         */
-        radio.checked = true;
-        radio.dispatchEvent(new Event("change", { bubbles: true }));
+        box.checked = true;
+        box.dispatchEvent(new Event("change", { bubbles: true }));
     });
 
-
-    /* 1. Area dropdown */
     function enhanceSelect(form, index) {
-
         const field = form.querySelector("[data-nk-select]");
-        const group = field ? field.querySelector(".wpcf7-radio") : null;
+        const group = field ? field.querySelector(".wpcf7-checkbox") : null;
 
         if (!field || !group) return null;
 
-        const radios = Array.from(group.querySelectorAll("input[type='radio']"));
+        const boxes = Array.from(group.querySelectorAll("input[type='checkbox']"));
         const placeholder = field.getAttribute("data-nk-select") || "Bereich";
+        const name = placeholder.replace(/\s*\*$/, "");
         const legend = field.querySelector(".nk-form__legend");
         const wrap = field.querySelector(".wpcf7-form-control-wrap");
 
         const panelId = "nk-bereich-panel-" + index;
         const toggleId = "nk-bereich-toggle-" + index;
 
-        group.setAttribute("role", "radiogroup");
+        group.setAttribute("role", "group");
 
         if (legend && legend.id) {
             group.setAttribute("aria-labelledby", legend.id);
@@ -107,39 +86,37 @@ document.addEventListener("DOMContentLoaded", function () {
         field.appendChild(error);
         field.classList.add("nk-select", "is-enhanced");
 
-        let pointerChoice = false;
+        const chosen = function () {
+            return boxes.filter(function (b) { return b.checked; });
+        };
 
-        const checked = function () {
-            return radios.find(function (r) { return r.checked; }) || null;
+        const isOpen = function () {
+            return field.classList.contains("is-open");
         };
 
         const sync = function () {
-
-            const current = checked();
-            const label = current ? current.value : placeholder;
+            const values = chosen().map(function (b) { return b.value; });
+            const label = values.length ? values.join(", ") : placeholder;
 
             valueEl.textContent = label;
-            valueEl.classList.toggle("is-placeholder", !current);
+            valueEl.classList.toggle("is-placeholder", !values.length);
 
-            /* "Bereich *: Handel" - the label and the value in one announcement. */
-            toggle.setAttribute("aria-label", current ? placeholder.replace(/\s*\*$/, "") + ": " + label : placeholder);
+            toggle.setAttribute("aria-label", values.length ? name + ": " + label : placeholder);
 
-            if (current) clearError();
+            if (values.length) clearError();
         };
 
         const open = function (focusChoice) {
-
             field.classList.add("is-open");
             toggle.setAttribute("aria-expanded", "true");
 
             if (focusChoice) {
-                (checked() || radios[0]).focus();
+                (chosen()[0] || boxes[0]).focus();
             }
         };
 
         const close = function (returnFocus) {
-
-            if (!field.classList.contains("is-open")) return;
+            if (!isOpen()) return;
 
             field.classList.remove("is-open");
             toggle.setAttribute("aria-expanded", "false");
@@ -155,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         toggle.addEventListener("click", function () {
-            if (field.classList.contains("is-open")) {
+            if (isOpen()) {
                 close(false);
             } else {
                 open(true);
@@ -169,57 +146,52 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        group.addEventListener("pointerdown", function () {
-            pointerChoice = true;
-        });
+        boxes.forEach(function (box, i) {
+            box.addEventListener("change", sync);
 
-        radios.forEach(function (radio) {
+            box.addEventListener("keydown", function (e) {
+                let next = null;
 
-            radio.addEventListener("change", function () {
-
-                sync();
-
-                /* A click picks and closes; arrow keys only move the choice. */
-                if (pointerChoice) {
-                    pointerChoice = false;
+                if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+                    next = boxes[(i + 1) % boxes.length];
+                } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+                    next = boxes[(i - 1 + boxes.length) % boxes.length];
+                } else if (e.key === "Home") {
+                    next = boxes[0];
+                } else if (e.key === "End") {
+                    next = boxes[boxes.length - 1];
+                } else if (e.key === "Enter") {
+                    e.preventDefault();
                     close(true);
+                    return;
                 }
-            });
 
-            radio.addEventListener("nk:sync", sync);
-
-            radio.addEventListener("keydown", function (e) {
-
-                if (e.key === "Enter" || e.key === " ") {
-                    /* Enter would submit the form from a radio button. */
+                if (next) {
                     e.preventDefault();
-
-                    if (!radio.checked) {
-                        radio.checked = true;
-                        radio.dispatchEvent(new Event("change", { bubbles: true }));
-                    }
-
-                    close(true);
-                } else if (e.key === "Escape") {
-                    e.preventDefault();
-                    close(true);
+                    next.focus();
                 }
             });
         });
 
-        /* Leaving the field - by click or by Tab - closes the panel. */
+        field.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && isOpen()) {
+                e.preventDefault();
+                close(true);
+            }
+        });
+
         document.addEventListener("click", function (e) {
             if (!field.contains(e.target)) close(false);
         });
 
         field.addEventListener("focusout", function (e) {
-            if (e.relatedTarget && !field.contains(e.relatedTarget)) close(false);
+            const next = e.relatedTarget;
+
+            if (next && !field.contains(next) && !next.contains(field)) close(false);
         });
 
-        /* CF7 marks the group invalid inside the closed panel - mirror it on the field. */
         form.closest(".wpcf7") && form.closest(".wpcf7").addEventListener("wpcf7invalid", function () {
             window.setTimeout(function () {
-
                 const tip = field.querySelector(".wpcf7-not-valid-tip");
 
                 if (group.classList.contains("wpcf7-not-valid") || tip) {
@@ -238,14 +210,11 @@ document.addEventListener("DOMContentLoaded", function () {
         return { sync: sync };
     }
 
-
-    /* 3. Hints */
     function hintElement(form) {
         return form.querySelector(".nk-form__hint");
     }
 
     function updateHint(form) {
-
         const hint = hintElement(form);
 
         if (!hint) return;
@@ -258,14 +227,21 @@ document.addEventListener("DOMContentLoaded", function () {
             hints = {};
         }
 
-        const current = form.querySelector("[name='bereich']:checked");
-        const text = current && hints[current.value] ? hints[current.value] : hint.getAttribute("data-default");
+        const fallback = hint.getAttribute("data-default");
+        const texts = [];
+
+        form.querySelectorAll(AREA + ":checked").forEach(function (box) {
+            const text = hints[box.value] || fallback;
+
+            if (text && texts.indexOf(text) === -1) texts.push(text);
+        });
+
+        const text = texts.length ? texts.join(" ") : fallback;
 
         if (text && hint.textContent !== text) hint.textContent = text;
     }
 
     function wireHint(form) {
-
         const hint = hintElement(form);
         const message = form.querySelector("[name='anliegen']");
 
@@ -280,21 +256,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         form.addEventListener("change", function (e) {
-            if (e.target && e.target.name === "bereich") updateHint(form);
+            if (e.target && e.target.matches(AREA)) updateHint(form);
         });
 
         updateHint(form);
     }
 
-
-    /* 4. Double sending */
     function guardDoubleSubmit(form) {
-
         const submit = form.querySelector("[type='submit']");
 
-        /* Capture phase - before CF7's own submit handler. */
         form.addEventListener("submit", function (e) {
-
             if (form.getAttribute("data-status") === "submitting" || form.classList.contains("submitting")) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
@@ -310,7 +281,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!submit || !("MutationObserver" in window)) return;
 
-        /* CF7 reports every state in data-status; anything but "submitting" frees the button. */
         new MutationObserver(function () {
             if (form.getAttribute("data-status") !== "submitting") {
                 submit.disabled = false;

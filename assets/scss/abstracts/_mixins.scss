@@ -1,11 +1,10 @@
+// _mixins.scss
+
 @use "colors" as *;
 @use "fonts" as *;
 @use "variables" as *;
 @use "functions" as *;
 
-/*
-* fl(min, max) - a value that scales from the 390 phone to the 1440 design.
-*/
 @function fl($min, $max) {
     @return fluid($min, $max, $vw-min, $vw-max);
 }
@@ -58,9 +57,6 @@
     list-style: none;
 }
 
-/*
-* Type scale (XD: Black 72/72, Black 56/60, Bold 24/26, Regular 19/26).
-*/
 @mixin t-h1 {
     font-weight: 900;
     font-size: fl(42, 72);
@@ -94,11 +90,66 @@
     line-height: 1.4;
 }
 
-/*
-* Frosted glass card. XD: background blur with a translucent beige or sage
-* fill. Without backdrop-filter support the fill is made nearly opaque so the
-* text keeps its contrast.
-*/
+@mixin btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    min-height: $button-h;
+    padding: 6px 20px;
+
+    font-family: inherit;
+    font-weight: 400;
+    font-size: fl(17, 19);
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+
+    color: var(--nk-dark);
+    background-color: transparent;
+    border: 1px solid var(--nk-dark);
+    border-radius: $radius;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+        color: var(--nk-beige);
+        background-color: var(--nk-dark);
+        text-decoration: none;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--nk-dark);
+        outline-offset: 3px;
+    }
+
+    &:disabled,
+    &[aria-disabled="true"] {
+        cursor: default;
+        opacity: 0.6;
+    }
+}
+
+@mixin btn-solid {
+    color: var(--nk-beige);
+    background-color: var(--nk-dark);
+
+    &:hover,
+    &:focus-visible {
+        color: var(--nk-dark);
+        background-color: transparent;
+    }
+
+    &:disabled:hover {
+        color: var(--nk-beige);
+        background-color: var(--nk-dark);
+    }
+}
+
 @mixin glass($rgb, $alpha, $blur: 24px, $brightness: 1.15) {
     background-color: rgba($rgb, $alpha);
     -webkit-backdrop-filter: blur($blur) brightness($brightness);

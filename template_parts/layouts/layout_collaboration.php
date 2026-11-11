@@ -1,12 +1,6 @@
 <?php
 /**
- * Layout: Zusammenarbeit (FRAME 04 / #zusammenarbeit).
- *
- * XD (1440): rows of 180 between hairlines, three 376 columns on the 1160
- * container - audience (bold 24), text (19), link with diagonal arrow
- * aligned right. Each link jumps to the contact form and preselects its area.
- *
- * @package naturKRAFT
+ * layout_collaboration.php
  */
 
 $nk_anchor = nk_anchor( get_sub_field( 'anchor' ) );

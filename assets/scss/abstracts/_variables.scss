@@ -1,22 +1,15 @@
-/*
-* Layout constants, measured on the 1440 artboard.
-*/
+// _variables.scss
 
-/* Content column: x140 → x1300. */
 $container: 1160px;
 
-/* Fluid range: phone (390) → design width (1440). */
 $vw-min: 390;
 $vw-max: 1440;
 
-/* Header bar: 105 on desktop, compact below the navigation breakpoint. */
 $header-h: 105px;
 $header-h-rsp: 72px;
 
-/* Inline navigation needs about 1100px; below it the burger takes over. */
 $nav-bp: 1100px;
 
-/* Standard field / button heights. */
 $control-h: 48px;
 $button-h: 40px;
 

@@ -1,11 +1,4 @@
-/*
-* naturKRAFT
-*
-* abstracts - tokens, functions, mixins (no output except @font-face)
-* base      - element defaults, buttons, editor content, reveals
-* layout    - header, footer
-* sections  - one partial per ACF layout, plus plain pages
-*/
+// style.scss
 
 @use 'abstracts' as *;
 

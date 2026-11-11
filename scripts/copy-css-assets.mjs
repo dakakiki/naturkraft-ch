@@ -1,4 +1,5 @@
-// scripts/copy-css-assets.mjs
+// copy-css-assets.mjs
+
 import fs from "fs";
 import path from "path";
 

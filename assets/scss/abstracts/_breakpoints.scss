@@ -1,10 +1,7 @@
-/*
-* Breakpoints
-*/
+// _breakpoints.scss
 
 @use "sass:map";
 
-// Define your breakpoints
 $breakpoints: (
     "xxxs": 360px,
     "xxs": 390px,

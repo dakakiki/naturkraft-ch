@@ -1,3 +1,5 @@
+// build-images.mjs
+
 import fs from "fs";
 import path from "path";
 
@@ -18,7 +20,6 @@ function copyAll() {
 
   ensureDir(outRoot);
 
-  // Node 16+ supports fs.cpSync
   fs.cpSync(srcRoot, outRoot, {
     recursive: true,
     force: true

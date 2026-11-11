@@ -1,3 +1,5 @@
+// watch-css-min.mjs
+
 import chokidar from "chokidar";
 import { exec } from "child_process";
 
@@ -26,10 +28,10 @@ function runMinify() {
   });
 }
 
-console.log("[watch:css:min] watching dist/css/style.css");
+console.log("[watch:css:min] watching dist/css/style.css, dist/css/editor.css");
 
 chokidar
-  .watch("dist/css/style.css", { ignoreInitial: true })
+  .watch(["dist/css/style.css", "dist/css/editor.css"], { ignoreInitial: true })
   .on("change", (file) => {
     console.log(`[watch:css:min] changed → ${file}`);
     runMinify();

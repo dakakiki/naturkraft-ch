@@ -1,30 +1,22 @@
 <?php
+/**
+ * wp_editor.php
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Disable core block patterns.
- */
 add_action( 'after_setup_theme', function () {
 	remove_theme_support( 'core-block-patterns' );
 } );
 
-/**
- * Disable remote patterns from WordPress.org.
- */
 add_filter( 'should_load_remote_block_patterns', '__return_false' );
 
-/**
- * Disable Block Directory results in inserter search.
- */
 add_action( 'plugins_loaded', function () {
 	remove_action( 'enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory_assets' );
 } );
 
-/**
- * Allow only selected Gutenberg blocks.
- */
 add_filter( 'allowed_block_types_all', function( $allowed_blocks, $editor_context ) {
 	return array(
 		'core/paragraph',
@@ -34,22 +26,37 @@ add_filter( 'allowed_block_types_all', function( $allowed_blocks, $editor_contex
 		'core/quote',
 		'core/image',
 
-		/*
-		 * Both entries are needed: core/buttons is the wrapper the editor
-		 * inserts and core/button is the one inside it. Allowing only the
-		 * second leaves the block uninsertable.
-		 */
 		'core/buttons',
 		'core/button',
-		// 'core/gallery',
+
 		'core/spacer',
 		'core/missing',
 	);
 }, 10, 2 );
 
-/**
- * Hide Patterns tab and block search in editor UI.
- */
+add_action( 'after_setup_theme', function () {
+	add_theme_support( 'editor-color-palette', array() );
+	add_theme_support( 'disable-custom-colors' );
+	add_theme_support( 'editor-gradient-presets', array() );
+	add_theme_support( 'disable-custom-gradients' );
+	add_theme_support( 'editor-font-sizes', array() );
+	add_theme_support( 'disable-custom-font-sizes' );
+
+	add_theme_support( 'editor-styles' );
+	add_editor_style( 'dist/css/editor.min.css' );
+} );
+
+add_filter( 'register_block_type_args', function ( $args, $name ) {
+	if ( 'core/heading' === $name && isset( $args['attributes'] ) ) {
+		$args['attributes']['levelOptions'] = array(
+			'type'    => 'array',
+			'default' => array( 2, 3, 4 ),
+		);
+	}
+
+	return $args;
+}, 10, 2 );
+
 add_action( 'admin_head', function () {
 	echo '<style>
 		.editor-inserter__patterns,

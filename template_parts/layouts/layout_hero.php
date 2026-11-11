@@ -1,15 +1,6 @@
 <?php
 /**
- * Layout: Hero (FRAME 01 / #start).
- *
- * XD (1440): photo 1440 wide, 632 visible under the header; glass card
- * 670x469 on the right edge of the 1160 container (x630 → 1300), 82 in from
- * top and bottom; under it the 63px ticker band.
- *
- * The section is above the fold, so its reveals play at once
- * (data-animate-now) instead of waiting for a scroll trigger.
- *
- * @package naturKRAFT
+ * layout_hero.php
  */
 
 $nk_anchor   = nk_anchor( get_sub_field( 'anchor' ) );

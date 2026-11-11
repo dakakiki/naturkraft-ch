@@ -1,10 +1,4 @@
-/*
-* Scroll reveals - initial state.
-*
-* GSAP hides these as it initialises, but the script is deferred, so without
-* this the browser paints them first and they blink out. Applies only while
-* JS is confirmed alive (.js on <html>) and until GSAP owns the element.
-*/
+// _animations.scss
 
 .js {
     .fade-up:not(.fade-up-initialized) {

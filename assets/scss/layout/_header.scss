@@ -1,15 +1,6 @@
-@use '../abstracts' as *;
+// _header.scss
 
-/*
-* Header
-*
-* XD (1440): beige bar 105 tall; logo 294x73 at x140; links Regular 19 with
-* 51 between them; "Anfrage stellen" 152x40 ending at x1300, 56 after the
-* last link. Hover underlines a link.
-*
-* Below $nav-bp the same navigation becomes a full-screen panel; the logo and
-* the burger stay above it.
-*/
+@use '../abstracts' as *;
 
 .site-header {
     position: sticky;
@@ -98,7 +89,6 @@
     }
 }
 
-
 .site-nav {
     position: fixed;
     inset: 0;
@@ -113,6 +103,8 @@
     padding: calc(var(--nk-header-h) + 24px) var(--nk-gutter) 48px;
 
     overflow-y: auto;
+
+    overscroll-behavior: contain;
 
     background-color: var(--nk-beige);
 

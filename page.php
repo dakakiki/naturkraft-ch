@@ -1,11 +1,6 @@
 <?php
 /**
- * Page template.
- *
- * A page built from sections (ACF "Seiteninhalte") renders those sections; a
- * plain page - Impressum, Datenschutz - renders its title and editor content.
- *
- * @package naturKRAFT
+ * page.php
  */
 
 get_header();

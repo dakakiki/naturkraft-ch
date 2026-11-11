@@ -1,12 +1,6 @@
 <?php
 /**
- * Font preloading.
- *
- * Source Sans Pro is self-hosted (no external font requests, as the brief
- * requires). The two cuts visible above the fold are preloaded: Regular for
- * the navigation and body copy, Black for the hero headline.
- *
- * @package naturKRAFT
+ * fonts.php
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,7 +8,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 add_action( 'wp_head', function () {
-
 	$fonts = array(
 		'SourceSansPro-Regular.woff2',
 		'SourceSansPro-Black.woff2',

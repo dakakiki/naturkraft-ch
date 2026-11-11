@@ -1,11 +1,6 @@
-@use "sass:map";
+// _colors.scss
 
-/*
-* Colours
-*
-* The four swatches of the XD file, plus the hairline grey and an error red
-* that keeps AA contrast on beige.
-*/
+@use "sass:map";
 
 $palette: (
     dark:  #1F2F2A,

@@ -1,14 +1,6 @@
-@use '../abstracts' as *;
+// _richtext.scss – text fields in all layouts
 
-/*
-* Editor content.
-*
-* Paragraphs are Regular 19/26. "Hervorhebung" (h3) is the Bold 24 line the
-* design uses either right after a paragraph (8 apart, as a closing
-* statement) or as the heading of a new block (about 52 above it, 16 to the
-* paragraph it introduces). The colour follows the section: dark on light
-* sections, sage on dark ones.
-*/
+@use '../abstracts' as *;
 
 .nk-richtext {
     > * + * {
@@ -37,7 +29,6 @@
         margin-top: 8px;
     }
 
-    /* A highlight that opens a new block, not one that closes the paragraph. */
     p + h3:has(+ p) {
         margin-top: fl(36, 52);
     }

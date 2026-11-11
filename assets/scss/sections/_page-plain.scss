@@ -1,12 +1,7 @@
-@use '../abstracts' as *;
+// _page-plain.scss – plain pages (page.php, 404.php)
 
-/*
-* Plain pages - Impressum, Datenschutz, 404.
-*
-* XD (Impressum artboard): a 25px dark band under the header, title Black
-* 56/60 48 below it, text Regular 19/26 1160 wide, a 25px sage band above
-* the footer.
-*/
+@use '../abstracts' as *;
+@use '../base/content';
 
 .page-plain {
     color: var(--nk-dark);
@@ -31,19 +26,7 @@
     &__content {
         margin-top: fl(20, 27);
 
-        h2 {
-            @include t-lead;
-
-            margin-top: 1.6em;
-        }
-
-        h3 {
-            margin-top: 1.4em;
-        }
-
-        > :first-child {
-            margin-top: 0;
-        }
+        @include content.page-content;
     }
 
     &__actions {

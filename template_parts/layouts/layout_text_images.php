@@ -1,11 +1,6 @@
 <?php
 /**
- * Layout: Text + Bilderreihe (FRAME 02 / #rohstoffe).
- *
- * XD (1440): beige, title 514 wide, text 1160; three photos 481x329 edge to
- * edge across the full width, the middle one 29 lower.
- *
- * @package naturKRAFT
+ * layout_text_images.php
  */
 
 $nk_anchor = nk_anchor( get_sub_field( 'anchor' ) );

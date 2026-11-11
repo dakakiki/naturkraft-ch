@@ -1,8 +1,6 @@
 <?php
 /**
- * "Diese Seite wurde nicht gefunden." - 404 and empty archives.
- *
- * @package naturKRAFT
+ * not-found.php – 404.php
  */
 
 $nk_title  = nk_option( 'error_title', 'Diese Seite wurde nicht gefunden.' );

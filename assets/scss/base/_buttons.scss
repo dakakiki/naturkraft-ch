@@ -1,70 +1,12 @@
+// _buttons.scss
+
 @use '../abstracts' as *;
 
-/*
-* Buttons (XD component "button_small")
-*
-* Outline: 1px dark border, 3 radius, Regular 19, dark label. Hover fills.
-* Solid:   dark fill, beige label. Hover turns into the outline.
-* lg:      48 tall (form buttons), at least 278 wide.
-*/
-
 .nk-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-
-    min-height: $button-h;
-    padding: 6px 20px;
-
-    font-family: inherit;
-    font-weight: 400;
-    font-size: fl(17, 19);
-    line-height: 1.2;
-    text-align: center;
-    text-decoration: none;
-
-    color: var(--nk-dark);
-    background-color: transparent;
-    border: 1px solid var(--nk-dark);
-    border-radius: $radius;
-
-    cursor: pointer;
-
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-
-    &:hover,
-    &:focus-visible {
-        color: var(--nk-beige);
-        background-color: var(--nk-dark);
-        text-decoration: none;
-    }
-
-    &:focus-visible {
-        outline: 2px solid var(--nk-dark);
-        outline-offset: 3px;
-    }
-
-    &:disabled,
-    &[aria-disabled="true"] {
-        cursor: default;
-        opacity: 0.6;
-    }
+    @include btn;
 
     &--solid {
-        color: var(--nk-beige);
-        background-color: var(--nk-dark);
-
-        &:hover,
-        &:focus-visible {
-            color: var(--nk-dark);
-            background-color: transparent;
-        }
-
-        &:disabled:hover {
-            color: var(--nk-beige);
-            background-color: var(--nk-dark);
-        }
+        @include btn-solid;
     }
 
     &--lg {
@@ -73,9 +15,6 @@
     }
 }
 
-/*
-* Text link with the diagonal arrow (XD "arrow2"), Bold 19. Hover underlines.
-*/
 .nk-arrow-link {
     display: inline-flex;
     align-items: center;
