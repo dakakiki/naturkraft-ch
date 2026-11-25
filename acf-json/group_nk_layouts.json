@@ -149,7 +149,7 @@
                             "tabs": "visual",
                             "toolbar": "naturkraft",
                             "media_upload": 0,
-                            "delay": 0
+                            "delay": 1
                         },
                         {
                             "key": "field_nk_ti_images",
@@ -210,7 +210,7 @@
                             "tabs": "visual",
                             "toolbar": "naturkraft",
                             "media_upload": 0,
-                            "delay": 0
+                            "delay": 1
                         },
                         {
                             "key": "field_nk_sc_kicker",
@@ -246,7 +246,7 @@
                             "tabs": "visual",
                             "toolbar": "naturkraft",
                             "media_upload": 0,
-                            "delay": 0
+                            "delay": 1
                         },
                         {
                             "key": "field_nk_sc_button",
@@ -320,7 +320,7 @@
                             "tabs": "visual",
                             "toolbar": "naturkraft",
                             "media_upload": 0,
-                            "delay": 0
+                            "delay": 1
                         },
                         {
                             "key": "field_nk_ic_image",
@@ -344,7 +344,7 @@
                             "tabs": "visual",
                             "toolbar": "naturkraft",
                             "media_upload": 0,
-                            "delay": 0
+                            "delay": 1
                         }
                     ],
                     "min": "",
@@ -403,7 +403,7 @@
                             "tabs": "visual",
                             "toolbar": "naturkraft",
                             "media_upload": 0,
-                            "delay": 0
+                            "delay": 1
                         }
                     ],
                     "min": "",
@@ -450,7 +450,7 @@
                             "tabs": "visual",
                             "toolbar": "naturkraft",
                             "media_upload": 0,
-                            "delay": 0
+                            "delay": 1
                         },
                         {
                             "key": "field_nk_co_rows",
@@ -572,7 +572,7 @@
                             "tabs": "visual",
                             "toolbar": "naturkraft",
                             "media_upload": 0,
-                            "delay": 0
+                            "delay": 1
                         },
                         {
                             "key": "field_nk_tl_items",
@@ -674,7 +674,7 @@
                             "tabs": "visual",
                             "toolbar": "naturkraft",
                             "media_upload": 0,
-                            "delay": 0,
+                            "delay": 1,
                             "wrapper": {
                                 "width": "70"
                             }
@@ -733,7 +733,7 @@
                             "tabs": "visual",
                             "toolbar": "naturkraft",
                             "media_upload": 0,
-                            "delay": 0
+                            "delay": 1
                         },
                         {
                             "key": "field_nk_tc_cards_anchor",
@@ -891,7 +891,7 @@
                             "tabs": "visual",
                             "toolbar": "naturkraft",
                             "media_upload": 0,
-                            "delay": 0
+                            "delay": 1
                         },
                         {
                             "key": "field_nk_ct_form",
@@ -953,7 +953,7 @@
                             "tabs": "visual",
                             "toolbar": "naturkraft",
                             "media_upload": 0,
-                            "delay": 0
+                            "delay": 1
                         },
                         {
                             "key": "field_nk_nl_form",
@@ -997,5 +997,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1795599072
+    "modified": 1795606585
 }
