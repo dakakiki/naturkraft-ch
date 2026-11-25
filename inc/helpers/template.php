@@ -111,6 +111,14 @@ function nk_atts( array $atts ): string {
 	return implode( ' ', $out );
 }
 
+function nk_row_heading( string $default = 'h2' ): string {
+	if ( function_exists( 'get_row_index' ) && 1 === (int) get_row_index() ) {
+		return 'h1';
+	}
+
+	return $default;
+}
+
 function nk_richtext( $html ): string {
 	$html = (string) $html;
 	$html = preg_replace( '#<p>(\s|&nbsp;|<br\s*/?>)*</p>#i', '', $html );

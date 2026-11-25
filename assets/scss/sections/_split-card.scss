@@ -1,0 +1,79 @@
+// _split-card.scss – layout_split_card
+
+@use '../abstracts' as *;
+
+.split-card {
+    padding-bottom: fl(48, 108);
+
+    &--solo {
+        padding-top: fl(40, 102);
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        @include respond-max('md') {
+            grid-template-columns: 1fr;
+        }
+
+        .nk-section__head + & {
+            margin-top: fl(40, 103);
+        }
+    }
+
+    &__card {
+        padding: fl(30, 71) fl(22, 82) fl(36, 77);
+
+        background-color: var(--nk-sand);
+    }
+
+    &__kicker {
+        font-weight: 700;
+    }
+
+    &__title {
+        margin-top: fl(4, 8);
+
+        font-weight: 900;
+        font-size: fl(30, 45);
+        line-height: 1.16;
+        letter-spacing: -0.005em;
+        text-wrap: balance;
+
+        &--lg {
+            @include t-h2;
+        }
+    }
+
+    &__text {
+        margin-top: fl(16, 25);
+
+        p + p {
+            margin-top: fl(18, 26);
+        }
+    }
+
+    &__cta {
+        margin-top: fl(20, 23);
+    }
+
+    &__media {
+        position: relative;
+
+        min-height: 320px;
+        overflow: hidden;
+
+        img {
+            position: absolute;
+            inset: 0;
+
+            @include cover-image;
+        }
+
+        @include respond-max('md') {
+            min-height: 0;
+            aspect-ratio: 4 / 3;
+        }
+    }
+}

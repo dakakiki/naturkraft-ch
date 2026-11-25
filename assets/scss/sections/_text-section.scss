@@ -1,0 +1,26 @@
+// _text-section.scss – layout_text
+
+@use '../abstracts' as *;
+
+.text-section {
+    &__link {
+        margin-top: fl(24, 39);
+
+        text-align: center;
+
+        a {
+            @include t-lead;
+
+            color: var(--nk-accent);
+            text-decoration-color: transparent;
+            text-underline-offset: 0.18em;
+
+            transition: text-decoration-color 0.2s ease;
+
+            &:hover,
+            &:focus-visible {
+                text-decoration-color: currentColor;
+            }
+        }
+    }
+}

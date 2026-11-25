@@ -152,7 +152,8 @@
             }
         }
 
-        .is-active > a {
+        .is-active > a,
+        .menu-item-object-page.current-menu-item > a {
             text-decoration-color: currentColor;
         }
     }
@@ -163,7 +164,7 @@
 
         flex-direction: row;
         align-items: center;
-        gap: 56px;
+        gap: clamp(20px, calc(3.5vw - 18px), 32px);
 
         padding: 0;
         overflow: visible;
@@ -177,12 +178,13 @@
 
         &__list {
             flex-direction: row;
-            gap: 51px;
+            gap: clamp(18px, calc(4.1vw - 25px), 34px);
 
             a {
                 font-weight: 400;
                 font-size: 19px;
                 line-height: 1.3;
+                white-space: nowrap;
             }
         }
     }

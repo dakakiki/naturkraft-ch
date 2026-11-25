@@ -33,6 +33,48 @@
             "return_format": "array"
         },
         {
+            "key": "field_nk_ts_tab_notice",
+            "label": "Hinweisleiste",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_nk_ts_notice_text",
+            "label": "Text",
+            "name": "notice_text",
+            "type": "text",
+            "instructions": "",
+            "required": 0
+        },
+        {
+            "key": "field_nk_ts_notice_link",
+            "label": "Link",
+            "name": "notice_link",
+            "type": "link",
+            "instructions": "",
+            "required": 0,
+            "return_format": "array"
+        },
+        {
+            "key": "field_nk_ts_notice_pages",
+            "label": "Anzeigen auf",
+            "name": "notice_pages",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "post_type": [
+                "page"
+            ],
+            "return_format": "id",
+            "allow_null": 1,
+            "multiple": 1,
+            "ui": 1
+        },
+        {
             "key": "field_nk_ts_tab_footer",
             "label": "Footer",
             "name": "",
@@ -161,5 +203,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1794401205
+    "modified": 1795599155
 }

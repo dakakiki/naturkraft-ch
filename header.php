@@ -3,9 +3,13 @@
  * header.php
  */
 
-$nk_logo   = nk_option( 'header_logo' );
-$nk_button = nk_option( 'header_button' );
-$nk_home   = is_front_page() ? '#start' : home_url( '/' );
+$nk_logo         = nk_option( 'header_logo' );
+$nk_button       = nk_option( 'header_button' );
+$nk_home         = is_front_page() ? '#start' : home_url( '/' );
+$nk_notice_text  = trim( (string) nk_option( 'notice_text', '' ) );
+$nk_notice_link  = nk_link( nk_option( 'notice_link' ), 'notice-bar__link' );
+$nk_notice_pages = array_filter( array_map( 'intval', (array) nk_option( 'notice_pages', array() ) ) );
+$nk_notice_show  = '' !== $nk_notice_text && ( ! $nk_notice_pages || ( is_singular() && in_array( (int) get_queried_object_id(), $nk_notice_pages, true ) ) );
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -90,3 +94,12 @@ $nk_home   = is_front_page() ? '#start' : home_url( '/' );
 	</div>
 
 </header>
+
+<?php if ( $nk_notice_show ) : ?>
+	<aside class="notice-bar" aria-label="<?php esc_attr_e( 'Hinweis', 'naturkraft' ); ?>">
+		<div class="notice-bar__inner">
+			<p class="notice-bar__text"><?= esc_html( $nk_notice_text ); ?><?php if ( $nk_notice_link ) : ?><span class="notice-bar__arrow" aria-hidden="true">&nbsp;→</span><?php endif; ?></p>
+			<?= $nk_notice_link; ?>
+		</div>
+	</aside>
+<?php endif; ?>

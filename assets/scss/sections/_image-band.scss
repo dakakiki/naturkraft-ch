@@ -1,0 +1,50 @@
+// _image-band.scss – layout_image_band
+
+@use '../abstracts' as *;
+
+.image-band {
+    padding-top: 0;
+    padding-bottom: fl(44, 56);
+
+    &__stage {
+        position: relative;
+        isolation: isolate;
+
+        padding-block: fl(48, 98) fl(32, 56);
+    }
+
+    &__media {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+
+        overflow: hidden;
+
+        img {
+            @include cover-image;
+        }
+
+        &::after {
+            content: "";
+
+            position: absolute;
+            inset: 0;
+
+            background: linear-gradient(90deg, clr(dark) 0%, rgba(clr(dark), 0.93) 24.6%, rgba(clr(dark), 0) 100%);
+
+            @include respond-max('sm') {
+                background: linear-gradient(90deg, rgba(clr(dark), 0.93) 0%, rgba(clr(dark), 0.55) 100%);
+            }
+        }
+    }
+
+    &__title {
+        @include t-h2;
+
+        max-width: 670px;
+    }
+
+    &__text {
+        padding-top: fl(32, 57);
+    }
+}

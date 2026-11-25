@@ -8,13 +8,18 @@
 @use 'base/animations';
 
 @use 'layout/header';
+@use 'layout/notice-bar';
 @use 'layout/footer';
 
 @use 'sections/section';
 @use 'sections/hero';
 @use 'sections/text-images';
+@use 'sections/split-card';
 @use 'sections/image-card';
+@use 'sections/image-band';
 @use 'sections/collab';
+@use 'sections/text-list';
+@use 'sections/text-section';
 @use 'sections/text-cards';
 @use 'sections/contact';
 @use 'sections/newsletter';

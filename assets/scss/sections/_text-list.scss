@@ -1,0 +1,44 @@
+// _text-list.scss – layout_text_list
+
+@use '../abstracts' as *;
+
+.text-list {
+    padding-bottom: fl(64, 124);
+
+    &__list {
+        @include reset-list;
+
+        margin-top: fl(40, 91);
+
+        border-top: 1px solid var(--nk-line);
+    }
+
+    &__item {
+        padding-block: fl(26, 47) fl(28, 45);
+
+        border-bottom: 1px solid var(--nk-line);
+    }
+
+    &__title {
+        @include t-lead;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+
+        &::after {
+            content: "";
+
+            flex: 0 0 22px;
+            height: 3px;
+
+            background-color: currentColor;
+        }
+    }
+
+    &__text {
+        max-width: 980px;
+        margin-top: fl(10, 20);
+    }
+}
