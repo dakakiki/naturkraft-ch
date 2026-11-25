@@ -1,7 +1,7 @@
 // layout_contact.js – layout_contact
 
 document.addEventListener("DOMContentLoaded", function () {
-    const AREA = "[name='bereich[]']";
+    const AREA = "[name='nk-bereich[]']";
 
     const forms = Array.from(document.querySelectorAll("form.nk-form, .nk-form form, form.wpcf7-form"))
         .filter(function (form) { return form.querySelector(AREA); });
@@ -243,7 +243,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function wireHint(form) {
         const hint = hintElement(form);
-        const message = form.querySelector("[name='anliegen']");
+        const message = form.querySelector("[name='nk-anliegen']");
 
         if (!hint) return;
 

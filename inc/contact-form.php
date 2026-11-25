@@ -45,7 +45,7 @@ add_action( 'wpcf7_init', function () {
 
 		unset( $hints['default'] );
 
-		$posted  = function_exists( 'wpcf7_get_hangover' ) ? wpcf7_get_hangover( 'bereich', array() ) : array();
+		$posted  = function_exists( 'wpcf7_get_hangover' ) ? wpcf7_get_hangover( 'nk-bereich', array() ) : array();
 		$current = nk_form_hint_for( array_map( 'strval', (array) $posted ) );
 
 		return sprintf(
@@ -81,9 +81,9 @@ function nk_cf7_fingerprint(): string {
 	$data = $submission->get_posted_data();
 
 	$parts = array(
-		strtolower( trim( (string) ( $data['email'] ?? '' ) ) ),
-		(string) ( is_array( $data['bereich'] ?? '' ) ? implode( ',', $data['bereich'] ) : ( $data['bereich'] ?? '' ) ),
-		trim( (string) ( $data['anliegen'] ?? '' ) ),
+		strtolower( trim( (string) ( $data['nk-email'] ?? '' ) ) ),
+		(string) ( is_array( $data['nk-bereich'] ?? '' ) ? implode( ',', $data['nk-bereich'] ) : ( $data['nk-bereich'] ?? '' ) ),
+		trim( (string) ( $data['nk-anliegen'] ?? '' ) ),
 	);
 
 	return 'nk_cf7_' . md5( implode( '|', $parts ) );
