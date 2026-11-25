@@ -57,4 +57,11 @@ add_action( 'wp_enqueue_scripts', function () {
 			'strategy'  => 'defer',
 		) );
 	}
+
+	if ( in_array( 'layout_text_list', $layouts, true ) ) {
+		wp_enqueue_script( 'nk-layout-text-list', nk_dist_uri( 'js/layout_text_list.min.js' ), array(), nk_dist_ver( 'js/layout_text_list.min.js' ), array(
+			'in_footer' => true,
+			'strategy'  => 'defer',
+		) );
+	}
 }, 20 );

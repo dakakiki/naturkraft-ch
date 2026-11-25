@@ -1088,20 +1088,87 @@ html:not(.js) .to-top {
   font-weight: 700;
   font-size: clamp(20px, 18.5142857143px + 0.380952381vw, 24px);
   line-height: 1.12;
+}
+.text-list__toggle {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  appearance: none;
+}
+.text-list__toggle:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+.text-list__toggle {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
+  width: 100%;
+  margin-block: -12px;
+  padding-block: 12px;
+  text-align: left;
 }
-.text-list__title::after {
-  content: "";
+@media (hover: hover) {
+  .text-list__toggle:hover .text-list__label {
+    text-decoration-color: currentColor;
+  }
+}
+.text-list__label {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.18em;
+  transition: text-decoration-color 0.2s ease;
+}
+.text-list__icon {
+  position: relative;
   flex: 0 0 22px;
+  height: 22px;
+}
+.text-list__icon::before, .text-list__icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 22px;
   height: 3px;
+  margin-top: -1.5px;
   background-color: currentColor;
+  transition: transform 0.35s ease;
+}
+.text-list__icon::after {
+  transform: rotate(90deg);
+}
+.text-list__item.is-open .text-list__icon::after {
+  transform: rotate(0deg);
+}
+.is-accordion .text-list__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition: grid-template-rows 0.35s ease, visibility 0s linear 0.35s;
+}
+.is-accordion .is-open .text-list__panel {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition: grid-template-rows 0.35s ease, visibility 0s;
+}
+.text-list__panel-inner {
+  min-height: 0;
+  overflow: hidden;
 }
 .text-list__text {
   max-width: 980px;
-  margin-top: clamp(10px, 6.2857142857px + 0.9523809524vw, 20px);
+  padding-top: clamp(10px, 6.2857142857px + 0.9523809524vw, 20px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .text-list__icon::before, .text-list__icon::after, .text-list__panel, .is-accordion .text-list__panel, .is-accordion .is-open .text-list__panel {
+    transition: none;
+  }
 }
 
 .text-section__link {

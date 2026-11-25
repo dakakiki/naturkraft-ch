@@ -21,24 +21,106 @@
 
     &__title {
         @include t-lead;
+    }
+
+    &__toggle {
+        @include reset-button;
+        @include focus-ring(4px);
 
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 24px;
 
+        width: 100%;
+        margin-block: -12px;
+        padding-block: 12px;
+
+        text-align: left;
+
+        @media (hover: hover) {
+            &:hover .text-list__label {
+                text-decoration-color: currentColor;
+            }
+        }
+    }
+
+    &__label {
+        text-decoration: underline;
+        text-decoration-color: transparent;
+        text-underline-offset: 0.18em;
+
+        transition: text-decoration-color 0.2s ease;
+    }
+
+    &__icon {
+        position: relative;
+
+        flex: 0 0 22px;
+        height: 22px;
+
+        &::before,
         &::after {
             content: "";
 
-            flex: 0 0 22px;
+            position: absolute;
+            top: 50%;
+            left: 0;
+
+            width: 22px;
             height: 3px;
+            margin-top: -1.5px;
 
             background-color: currentColor;
+
+            transition: transform 0.35s ease;
         }
+
+        &::after {
+            transform: rotate(90deg);
+        }
+    }
+
+    &__item.is-open &__icon::after {
+        transform: rotate(0deg);
+    }
+
+    &__panel {
+        .is-accordion & {
+            display: grid;
+            grid-template-rows: 0fr;
+
+            visibility: hidden;
+
+            transition: grid-template-rows 0.35s ease, visibility 0s linear 0.35s;
+        }
+
+        .is-accordion .is-open & {
+            grid-template-rows: 1fr;
+
+            visibility: visible;
+
+            transition: grid-template-rows 0.35s ease, visibility 0s;
+        }
+    }
+
+    &__panel-inner {
+        min-height: 0;
+        overflow: hidden;
     }
 
     &__text {
         max-width: 980px;
-        margin-top: fl(10, 20);
+        padding-top: fl(10, 20);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        &__icon::before,
+        &__icon::after,
+        &__panel,
+        .is-accordion &__panel,
+        .is-accordion .is-open &__panel {
+            transition: none;
+        }
     }
 }

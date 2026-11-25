@@ -11,6 +11,7 @@ const themeRoot = process.cwd();
 export const entries = [
   { in: "assets/js/custom.js", out: "dist/js/custom.min.js", bundle: false },
   { in: "assets/js/layout_contact.js", out: "dist/js/layout_contact.min.js", bundle: false },
+  { in: "assets/js/layout_text_list.js", out: "dist/js/layout_text_list.min.js", bundle: false },
 
   { in: "assets/js/gsap.js", out: "dist/js/gsap.min.js", bundle: true },
 ];
